@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="../favicon/java-script.png"
+      type="image/x-icon"
+    />
+    <title>Primeiro script</title>
+
+    <style>
+      body {
+        /*box-model*/
+        background-color: purple;
+        color: white;
+        /*typography*/
+        font: normal 25px arial;
+      }
+
+      main {
+        /*box-model*/
+        margin: auto;
+        max-width: 600px;
+      }
+      .button {
+        /*box-model*/
+        width: 104px;
+        padding: 8px 16px;
+        background-color: white;
+        border: none;
+        border-radius: 4px;
+
+        /*typography*/
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .button:hover {
+        /*box-model*/
+        background-color: aquamarine;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Olá, mundo!</h1>
+      <p class="paragraph">
+        Você pode experimentar um pouco de interatividade clicando no botão
+        abaixo.
+      </p>
+
+      <button id="tocar" class="button" onclick="calculate()">
+        Clique aqui
+      </button>
+    </main>
+    <!--Animation using js-->
+    <script>
+      function sum(number1, number2) {
+        return number1 + number2;
+      }
+
+      function subtraction(number1, number2) {
+        return number1 - number2;
+      }
+
+      function multiplication(number1, number2) {
+        return number1 * number2;
+      }
+      function division(number1, number2) {
+        return number1 / number2;
+      }
+
+      function calculate() {
+        var number1 = Number.parseFloat(
+          window.prompt("digite o primeiro número: ")
+        );
+
+        var number2 = Number.parseFloat(
+          window.prompt("digite o segundo número: ")
+        );
+        var sum1 = sum(number1, number2);
+        var subtraction1 = subtraction(number1, number2);
+        var multiplication1 = multiplication(number1, number2);
+        var division1 = division(number1, number2);
+        window.alert(
+          `Soma: ${sum1}, subtração: ${subtraction1}, multiplicação: ${multiplication1} e a divisão: ${division1}`
+        ); /*Template String*/
+      }
+      /*  
+                  function giveResponse(response) {
+                    if (response) {
+                      return "é bom ver que você está adorando JS";
+                    }
+                    return "continue treinando você vai aprender JS";
+                  }*/
+    </script>
+    <!--End of Animation-->
+  </body>
+</html>

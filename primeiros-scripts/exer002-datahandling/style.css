@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+:root {
+  /*Typography*/
+  /*Fonts*/
+  --font-title: "Roboto", sans-serif;
+  --font-content: "Montserrat", serif;
+}
+
+body {
+  /*box-model*/
+  background-color: purple;
+  color: white;
+  /*typography*/
+  font: normal 25px arial;
+}
+
+main {
+  /*box-model*/
+  margin: auto;
+  max-width: 600px;
+}
+ul {
+  list-style: none;
+}
+aside {
+  display: inline;
+}
+
+.button {
+  /*box-model*/
+  width: 104px;
+  padding: 8px 16px;
+  background-color: white;
+  border: none;
+  border-radius: 4px;
+
+  /*typography*/
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.button:hover {
+  /*box-model*/
+  background-color: aquamarine;
+  cursor: pointer;
+}
+
+h1 {
+  /*Typography*/
+  font-family: var(--font-title);
+  font-size: 25px;
+}
+
+.flexbox {
+  /*Display stuff*/
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
