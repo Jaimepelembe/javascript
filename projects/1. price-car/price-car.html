@@ -3,51 +3,86 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="shortcut icon"
-      href="../exer003-preco-carro/carro-esporte.png"
-      type="image/x-icon"
-    />
+    <link rel="shortcut icon" href="car-sport.png" type="image/x-icon" />
     <link rel="stylesheet" href="style.css" />
 
     <title>Preço Carro</title>
   </head>
   <body>
     <main id="main" class="flexbox">
-      <h1>Preço do Carro</h1>
-      <section id="inputCarr" class="flexbox">
-        <div class="containerInputs flexbox">
-          <label for="idName"
-            >Nome do carro:
-            <input type="text" name="name" id="idName" class="input"
-          /></label>
-
-          <label for="idprice"
-            >Preço de fábrica:
-            <input type="number" name="price" id="idPrice" class="input"
-          /></label>
+      <h1>Informações do Carro</h1>
+      <section id="inputCarr" class="flexbox fullWidth">
+        <div id="containerInput1" class="containerInput flexbox flexboxRow">
+          <label for="carName">Nome: </label>
+          <input
+            type="text"
+            name="name"
+            id="carName"
+            class="input required"
+            autocomplete="username"
+          />
         </div>
 
-        <div class="containerButton flexbox fullWidth">
+        <div id="containerInput2" class="containerInput flexbox flexboxRow">
+          <label for="factoryPrice">Preço fábrica: </label
+          ><input
+            type="number"
+            name="price"
+            id="factoryPrice"
+            class="input required"
+          />
+        </div>
+
+        <div id="containerInput3" class="containerInput flexbox flexboxRow">
+          <label for="taxPercentage">Percentagem imposto: </label>
+          <input
+            type="number"
+            name="taxPercentage"
+            id="taxPercentage"
+            class="input inputPercentage"
+            value="45"
+          />
+        </div>
+
+        <div id="containerInput4" class="containerInput flexbox flexboxRow">
+          <label for="dealerPercentage">Percentagem revendedor: </label
+          ><input
+            type="number"
+            name="dealerPercentage"
+            id="dealerPercentage"
+            class="input inputPercentage"
+            value="28"
+          />
+        </div>
+
+        <div class="containerButton flexbox flexboxRow fullWidth">
           <button id="buttonCalcular" class="button" onclick="calculate()">
             Calcular
           </button>
+          <input
+            type="reset"
+            value="Limpar"
+            id="buttonReset"
+            class="button"
+            onclick="reset()"
+          />
         </div>
       </section>
-      <section id="outputCarr" class="flexbox fullWidth">
-        <!--Name-->
-        <label for="nameCarr" id="labelNameCarr"
-          >Nome:
-          <aside id="nameCarr">Mercedes</aside>
-        </label>
+      <!--Section output of the car information-->
+      <section id="outputCar" class="flexbox fullWidth">
+        <div id="containerOutput1" class="containerOutput">
+          <!--Name-->
+          <label for="outputCarName" id="labelCarName">Nome: </label>
+          <output id="outputCarName" class="output"></output>
+        </div>
 
-        <!--Price-->
-
-        <label for="priceCarr" id="labelPriceCarr"
-          >Preço final:
-          <aside id="priceCarr">100</aside>
-        </label>
+        <div id="containerOutput2" class="containerOutput">
+          <!--Price-->
+          <label for="outputCarPrice" id="labelCarPrices">Preço final:</label>
+          <output id="outputCarPrice" class="output"> </output>
+        </div>
       </section>
     </main>
   </body>
+  <script src="script.js"></script>
 </html>

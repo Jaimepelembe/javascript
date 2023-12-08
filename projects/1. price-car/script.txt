@@ -32,29 +32,6 @@ function resetPercentages() {
   }
 }
 
-function calculatePercentage(percentage) {
-  return   Number.parseFloat(factoryPrice)*(percentage / 100);
-}
-
-function finalPrice() {
-  var finalPrice = 0;
-
-  /**Calculate the final price of the car */
-  if (!isNaN(factoryPrice.value)) {
-    factoryPrice = Number.parseFloat(factoryPrice.value);
-    taxPercentage = Number.parseFloat(taxPercentage.value);
-    dealerPercentage = Number.parseFloat(dealerPercentage.value);
-    console.log("Nao e numero");
-  }
-
-  finalPrice =
-    factoryPrice +
-    calculatePercentage(taxPercentage) +
-    calculatePercentage(dealerPercentage);
-
-  return finalPrice;
-}
 function calculate() {
   setCarName();
-  outputCarPrice.innerHTML = finalPrice();
 }

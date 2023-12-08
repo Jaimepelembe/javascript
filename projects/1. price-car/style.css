@@ -7,9 +7,14 @@
   --font-content: "Montserrat", serif;
 
   /*Colors*/
-  --color-white: #fff;
-  --color-black: #000;
-  --color-purple: purple;
+  --colorWhite: #fff;
+  --colorBlack: #000;
+  --colorYellowLight: #ecebe4;
+  --colorYellowLightDark30: #a5a5a0;
+  --colorVioletRussian: #3d2b56;
+  --colorVioletRussianLight50: #9e95ab;
+  --colorRedTomato: #d87a6b;
+  --colorRedTomatoLight30: #e4a297;
 }
 
 * {
@@ -21,17 +26,25 @@
   font-family: var(--font-content);
   font-size: 16px;
 }
+html,
 body {
+  /*Display stuff*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   /*box-model*/
-  background-color: var(--color-purple);
-  color: var(--color-white);
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--colorVioletRussianLight50);
+  color: var(--colorWhite);
 }
 
 .flexbox {
   /*Display stuff*/
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   align-items: flex-start;
 }
 
@@ -42,8 +55,11 @@ body {
 #main {
   /*box-model*/
   margin: auto;
-  margin-top: 5%;
+  width: 100%;
   max-width: 400px;
+  background-color: var(--colorVioletRussian);
+  padding: 50px 40px;
+  border-radius: 8px;
 
   /*Display Stuff*/
   align-items: center;
@@ -58,19 +74,29 @@ aside {
   /*box-model*/
   width: 104px;
   padding: 8px 16px;
-  background-color: var(--color-white);
+  background-color: var(--colorRedTomato);
   border: none;
   border-radius: 4px;
 
   /*typography*/
   font-family: var(--font-title);
-  font-weight: 500;
+  font-weight: 400;
+  color: var(--colorBlack);
 }
 
 .button:hover {
   /*box-model*/
-  background-color: aquamarine;
+  background-color: var(--colorRedTomatoLight30);
   cursor: pointer;
+}
+#buttonReset {
+  /*Box-model*/
+  background-color: var(--colorYellowLight);
+}
+
+#buttonReset:hover {
+  /*Box-model*/
+  background-color: var(--colorYellowLightDark30);
 }
 
 h1 {
@@ -87,12 +113,28 @@ h1 {
   border: none;
   border-radius: 2px;
   outline: none;
+  /*typography*/
+  font-size: 12px;
+}
+.inputPercentage {
+  /*box-model*/
+  max-width: 40px;
 }
 
 /*Section output of Carr*/
-#outputCarr {
+#outputCar {
   /*box-model*/
   padding: 10px;
-  border: 1px solid var(--color-white);
+  border: 1px solid var(--colorWhite);
+}
 
+@media screen and (min-width: 400px) {
+  .flexboxRow {
+    flex-direction: row;
+  }
+
+  .input {
+    /*typography*/
+    font-size: 16px;
+  }
 }
