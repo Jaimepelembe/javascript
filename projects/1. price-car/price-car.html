@@ -12,14 +12,19 @@
     <main id="main" class="flexbox">
       <h1>Informações do Carro</h1>
       <section id="inputCarr" class="flexbox fullWidth">
-        <div id="containerInput1" class="containerInput flexbox flexboxRow">
-          <label for="carName">Nome: </label>
-          <input
-            type="text"
-            name="name"
-            id="carName"
-            class="input required"
-          />
+        <div class="flexbox">
+          <div id="containerInput1" class="containerInput flexbox flexboxRow">
+            <label for="carName">Nome: </label>
+            <div class="flexbox containerAlert">
+              <input
+                type="text"
+                name="name"
+                id="carName"
+                class="input required"
+              />
+              <span id="nameAlert" class="alert"></span>
+            </div>
+          </div>
         </div>
 
         <div id="containerInput2" class="containerInput flexbox flexboxRow">
@@ -31,7 +36,6 @@
             class="input required"
           />
         </div>
-
         <div id="containerInput3" class="containerInput flexbox flexboxRow">
           <label for="taxPercentage">Percentagem imposto: </label>
           <input
@@ -42,7 +46,6 @@
             value="45"
           />
         </div>
-
         <div id="containerInput4" class="containerInput flexbox flexboxRow">
           <label for="dealerPercentage">Percentagem revendedor: </label
           ><input
@@ -53,9 +56,8 @@
             value="28"
           />
         </div>
-
         <div class="containerButton flexbox flexboxRow fullWidth">
-          <button id="buttonCalcular" class="button" onclick="calculate()">
+          <button id="buttonCalculate" class="button" onclick="calculate()">
             Calcular
           </button>
           <input
@@ -74,7 +76,6 @@
           <label for="outputCarName" id="labelCarName">Nome: </label>
           <output id="outputCarName" class="output"></output>
         </div>
-
         <div id="containerOutput2" class="containerOutput">
           <!--Price-->
           <label for="outputCarPrice" id="labelCarPrices">Preço final:</label>

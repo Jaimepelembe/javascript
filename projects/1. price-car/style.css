@@ -121,6 +121,17 @@ h1 {
   max-width: 40px;
 }
 
+.containerAlert {
+  /*Display stuff*/
+  gap: 5px;
+}
+
+.alert {
+  /*Typography*/
+  font-size: 8px;
+  color: var(--colorRedTomatoLight30);
+}
+
 /*Section output of Carr*/
 #outputCar {
   /*box-model*/
@@ -136,5 +147,9 @@ h1 {
   .input {
     /*typography*/
     font-size: 16px;
+  }
+  .alert {
+    /*Typography*/
+    font-size: 10px;
   }
 }
