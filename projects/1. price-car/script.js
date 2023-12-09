@@ -1,19 +1,13 @@
 /*Declaration of variables */
-/*Inputs*/
-var carName = document.getElementById("carName");
-var factoryPrice = document.getElementById("factoryPrice");
-/*outputs*/
 var outputCarName = document.getElementById("outputCarName");
 var outputCarPrice = document.getElementById("outputCarPrice");
-/* Reserve*/
-var taxPercentage = document.getElementById("taxPercentage");
-var dealerPercentage = document.getElementById("dealerPercentage");
 
 function setCarName() {
+  var carName = document.getElementById("carName");
   outputCarName.innerHTML = carName.value;
 }
 
-/* clean all the fields*/
+/* Reset all the fields*/
 function reset() {
   carName.value = "";
   factoryPrice.value = "";
@@ -32,28 +26,33 @@ function resetPercentages() {
   }
 }
 
-function calculatePercentage(percentage) {
-  return   Number.parseFloat(factoryPrice)*(percentage / 100);
+function calculatePercentage(percentage, factoryPrice) {
+  return factoryPrice * (percentage / 100);
 }
 
 function finalPrice() {
-  var finalPrice = 0;
+  /*Calculate the final price of the car */
+  var finalPrice = 0.0;
+  var factoryPrice = document.getElementById("factoryPrice").value; //Return a String
+  var taxPercentage = document.getElementById("taxPercentage").value;
+  var dealerPercentage = document.getElementById("dealerPercentage").value;
+  var coin;
 
-  /**Calculate the final price of the car */
-  if (!isNaN(factoryPrice.value)) {
-    factoryPrice = Number.parseFloat(factoryPrice.value);
-    taxPercentage = Number.parseFloat(taxPercentage.value);
-    dealerPercentage = Number.parseFloat(dealerPercentage.value);
-    console.log("Nao e numero");
-  }
+  factoryPrice = Number.parseFloat(factoryPrice);
+  taxPercentage = Number.parseFloat(taxPercentage);
+  dealerPercentage = Number.parseFloat(dealerPercentage);
 
   finalPrice =
     factoryPrice +
-    calculatePercentage(taxPercentage) +
-    calculatePercentage(dealerPercentage);
+    calculatePercentage(taxPercentage, factoryPrice) +
+    calculatePercentage(dealerPercentage, factoryPrice);
 
+  //Format of  the coin
+  coin = { style: "currency", currency: "USD" };
+  finalPrice = finalPrice.toLocaleString("pt-BR", coin);
   return finalPrice;
 }
+
 function calculate() {
   setCarName();
   outputCarPrice.innerHTML = finalPrice();
