@@ -3,15 +3,11 @@ var outputCarName = document.getElementById("outputCarName");
 var outputCarPrice = document.getElementById("outputCarPrice");
 const buttonCalculate = document.querySelector("#buttonCalculate");
 
-const modal = document.querySelector(".modal");
-const buttonCloseModal = document.querySelector(".buttonCloseModal");
-
 function setCarName() {
   var carName = document.getElementById("carName");
   outputCarName.innerHTML = carName.value;
 }
 
-/* Reset all the fields*/
 function reset() {
   carName.value = "";
   factoryPrice.value = "";
@@ -21,6 +17,9 @@ function reset() {
 }
 
 function resetPercentages() {
+  var taxPercentage = document.getElementById("taxPercentage");
+  var dealerPercentage = document.getElementById("dealerPercentage");
+
   if (taxPercentage.value != 45) {
     taxPercentage.value = 45;
   }
