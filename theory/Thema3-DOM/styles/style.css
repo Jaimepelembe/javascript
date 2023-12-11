@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+:root {
+  /*Typography*/
+  /*Fonts*/
+  --font-title: "Roboto", sans-serif;
+  --font-content: "Montserrat", serif;
+
+  /*Colors*/
+  --colorWhite: #fff;
+  --colorBlack: #000;
+  --colorBlueDark: #003049;
+  --colorRed: #d62828;
+  --colorOrange: #f77f00;
+  --colorYellow: #fcbf49;
+}
+
+* {
+  /*Box-model*/
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+
+  /*Typography*/
+  font-family: var(--font-content);
+  font-size: 16px;
+}
+
+html,
+body {
+  /*Display stuff*/
+  display: flex;
+  justify-content: center;
+
+  /*box-model*/
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--colorBlueDark);
+  color: var(--colorWhite);
+}
+
+#main {
+  /*box-model*/
+  margin-top: 20px;
+  background-color: var(--colorBlueDark);
+}
+
+h1 {
+  /*Typography*/
+  font-family: var(--font-title);
+  font-size: 20px;
+}
+
+.flexbox {
+  /*Display stuff*/
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.button {
+  /*box-model*/
+  width: 104px;
+  padding: 8px 16px;
+  background-color: var(--colorOrange);
+  border: none;
+  border-radius: 4px;
+
+  /*typography*/
+  font-family: var(--font-title);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--colorBlack);
+}
+
+.button:hover {
+  /*box-model*/
+  background-color: var(--colorYellow);
+  cursor: pointer;
+}
