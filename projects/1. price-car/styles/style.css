@@ -19,6 +19,7 @@
 
 * {
   /*Box-model*/
+  box-sizing: border-box;
   margin: 0px;
   padding: 0px;
 
@@ -106,6 +107,12 @@ h1 {
 }
 
 /*Section input*/
+.containerInput {
+  /*Display stuff*/
+  position: relative;
+  z-index: 10;
+}
+
 .input {
   /*box-model*/
   max-width: 160px;
@@ -118,18 +125,89 @@ h1 {
 }
 .inputPercentage {
   /*box-model*/
-  max-width: 40px;
+  max-width: 48px;
+  padding: 5px;
 }
 
-.containerAlert {
+/*Dialog box*/
+
+.modal {
   /*Display stuff*/
-  gap: 5px;
+  position: absolute;
+  top: 25%;
+  left: 18%;
+  z-index: 10;
+
+  /*box-model*/
+  width: 100vw;
+  max-width: 232px;
+  padding: 10px;
+  border: 1px solid var(--colorBlack);
+  border-radius: 8px;
 }
 
-.alert {
+.containerAlert.flexboxRow,
+.modalHeader.flexboxRow {
+  /*Display stuff*/
+  flex-direction: row;
+}
+.containerAlert.flexboxRow {
+  /*Display stuff*/
+  gap: 10px;
+}
+
+.modalHeader.flexboxRow {
+  /*Display stuff*/
+  justify-content: space-between;
+  align-items: center;
+}
+
+.image {
+  width: 100%;
+}
+
+.imageAlert {
+  width: 16px;
+  height: 16px;
+  background-image: url(../images/perigo.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/*Button*/
+.buttonModal {
+  /*box-model*/
+  width: 24px;
+  height: 24px;
+  background-color: var(--colorWhite);
+  border: none;
+
+  /*Display stuff*/
+  align-items: center;
+
+  /*typography*/
+  color: var(--colorBlack);
+
+  /*Geral settings*/
+  cursor: pointer;
+  transition: 0.3s;
+}
+.buttonModal:hover {
+  /*box-model*/
+  background-color: var(--colorYellowLightDark30);
+}
+
+.titleAlert {
   /*Typography*/
-  font-size: 8px;
-  color: var(--colorRedTomatoLight30);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--colorBlack);
+}
+
+.messageAlert {
+  /*Typography*/
+  font-size: 12px;
+  color: var(--colorBlack);
 }
 
 /*Section output of Carr*/
