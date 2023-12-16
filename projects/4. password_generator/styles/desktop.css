@@ -1,0 +1,49 @@
+* {
+  /*Typography*/
+  font-size: 16px;
+}
+
+#form {
+  /*box-model*/
+  max-width: 480px;
+  max-height: 512px;
+  border-radius: 16px;
+}
+
+.flexboxRow {
+  /*box-model*/
+  max-width: 320px;
+}
+
+h1 {
+  /*typography*/
+  font-size: 25px;
+}
+
+#outputPassword {
+  /*box-model*/
+  width: 200px;
+}
+
+#buttonCopy {
+  /*box-model*/
+  width: 56px;
+  height: 32px;
+  padding: 5px;
+
+  /*typography*/
+  font-size: 16px;
+}
+
+/*container Length*/
+#inputLength {
+  /*box-model*/
+  width: 48px;
+}
+
+/*container checkbox*/
+.checkbox {
+  /*box-model*/
+  width: 20px;
+  height: 20px;
+}

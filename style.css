@@ -61,6 +61,7 @@ a {
 .link:hover {
   /*typography*/
   color: var(--colorBlueDark30);
+  text-decoration: underline;
 }
 
 .flexbox {
