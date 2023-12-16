@@ -8,10 +8,10 @@
   <body></body>
 
   <script>
-    var a = [7, 5, 1, 7, 88, 9, 6, 66, 5, 5, 4, 3, 1, 0, -10]; //a is the Array
-    var minIndex = 0;
-    var auxiliar = 0;
-    var arraySize = a.length;
+    var a = [7, 5, 1, 7, 88, 9, 6, 66, 5, 5, 4, 3, 1, 0, -10];
+    var minIndex = 0,
+      auxiliar = 0,
+      arraySize = a.length;
     console.log("Array não ordenado:");
     console.log(a);
 
@@ -19,12 +19,12 @@
       minIndex = j;
 
       for (var i = j; i < arraySize; i++) {
-        /*Find the smaller element in the array*/
+        //Find the position of the smaller element on the unsorted
         if (a[i] < a[minIndex]) {
           minIndex = i;
         }
       }
-      /*Put the smaller element on the smaller position avaliable*/
+      /*Put the smaller element on the smaller position avaliable on the sorted part*/
       if (a[j] > a[minIndex]) {
         auxiliar = a[j];
         a[j] = a[minIndex];
