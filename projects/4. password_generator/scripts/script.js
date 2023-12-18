@@ -1,45 +1,113 @@
 //DOM elements
-const ouputPassword = document.getElementById("ouputPassword");
-const passwordLength = document.getElementById("inputLength");
+const outputPassword = document.getElementById("outputPassword");
+var passwordLength = document.getElementById("inputLength");
 passwordLength.value = "20";
-const inputUpperCase = document.getElementById("inputUpperCase");
-const inputLowerCase = document.getElementById("inputLowerCase");
-const inputNumber = document.getElementById("inputNumber");
-const inputSymbols = document.getElementById("inputSymbols");
+var inputUpperCase = document.getElementById("inputUpperCase");
+var inputLowerCase = document.getElementById("inputLowerCase");
+var inputNumber = document.getElementById("inputNumber");
+var inputSymbols = document.getElementById("inputSymbols");
 const buttonGenerate = document.getElementById("buttonGenerate");
 const buttonClean = document.getElementById("buttonClean");
 const buttonCopy = document.getElementById("buttonCopy");
+const form = document.getElementById("form");
+var typesCount = -1;
 
-const randomFunction = {
-  lowerCase: getRandomLowerCase,
-  upperCase: getRandomUpperCase,
-  number: getRandomNumber,
-  symbol: getRandomSymbol,
-};
+//Modal
+var modal1 = document.getElementById("modal1");
+var inputLengthAlert = document.getElementById("inputLengthAlert");
 
-function GeneratePassword() {
-  const length = passwordLength.value;
-  const UpperCase = inputUpperCase.value;
-  const LowerCase = inputLowerCase.value;
-  const number = inputNumber.value;
-  const symbol = inputSymbols.value;
+function getFormProprities() {
+  const length = Number.parseInt(passwordLength.value);
+  const hasUpperCase = inputUpperCase.checked;
+  const hasLowerCase = inputLowerCase.checked;
+  const hasNumber = inputNumber.checked;
+  const hasSymbol = inputSymbols.checked;
+  const arrayTypes = buildArrayTypes(
+    hasUpperCase,
+    hasLowerCase,
+    hasNumber,
+    hasSymbol
+  );
 
-  window.alert(length);
+  generatePassword(length, hasUpperCase, hasLowerCase, arrayTypes);
 }
 
-function validateLength() {
-  var passwordLength = document.getElementById("inputLength").value;
-  var modal1 = document.getElementById("modal1");
-  inputLengthAlert = document.getElementById("inputLengthAlert");
-  passwordLength = Number.parseInt(passwordLength);
+//2. Filter out unchecked types
+function buildArrayTypes(hasUpperCase, hasLowerCase, hasNumber, hasSymbol) {
+  var arrayTypes = {};
+  var count = -1;
+  if (hasUpperCase) {
+    count++;
+    arrayTypes[count] = "hasUpperCase";
+  }
+  if (hasLowerCase) {
+    count++;
+    arrayTypes[count] = "hasLowerCase";
+  }
+  if (hasNumber) {
+    count++;
+    arrayTypes[count] = "hasNumber";
+  }
+  if (hasSymbol) {
+    count++;
+    arrayTypes[count] = "hasSymbol";
+  }
+  typesCount = count;
+  return arrayTypes;
+}
 
-  if (isNaN(passwordLength)) {
-    inputLengthAlert.innerHTML = "Por favor, insira o comprimento da senha";
+function generatePassword(length, hasUpperCase, hasLowerCase, arrayTypes) {
+  //1. Initialize the password variable
+  //2. Filter out unchecked types
+  //3. Loop over length call generator function for each type
+  //4. Add final password to the password variable and put on outputPassword
+
+  var generatedPassword = "";
+
+  if (
+    validateLength() &&
+    validateCheckboxes(typesCount, hasUpperCase, hasLowerCase)
+  ) {
+    var randomOperation;
+    console.log("Quantidade input: ", typesCount);
+    for (var i = 0; i < length; i++) {
+      randomOperation = arrayTypes[getRandomInt(typesCount + 1)];
+
+      switch (randomOperation) {
+        case "hasUpperCase":
+          generatedPassword += getRandomUpperCase();
+          break;
+
+        case "hasLowerCase":
+          generatedPassword += getRandomLowerCase();
+          break;
+
+        case "hasNumber":
+          generatedPassword += getRandomNumber();
+          break;
+
+        case "hasSymbol":
+          generatedPassword += getRandomSymbol();
+          break;
+      }
+    }
+    outputPassword.value = generatedPassword;
+  } else {
+    outputPassword.value = "";
+  }
+}
+
+//Validate functions
+function validateLength() {
+  length = Number.parseInt(passwordLength.value);
+
+  if (isNaN(length)) {
+    inputLengthAlert.innerHTML = "Please, insert the length of the password";
     modal1.showModal();
 
     return false;
   } else {
-    if (passwordLength < 8) {
+    if (length < 8) {
       inputLengthAlert.innerHTML =
         "The password length can't be smaller than 8";
       modal1.showModal();
@@ -47,7 +115,7 @@ function validateLength() {
       return false;
     }
 
-    if (passwordLength > 40) {
+    if (length > 40) {
       inputLengthAlert.innerHTML =
         "The password length can't be bigger than 40";
       modal1.showModal();
@@ -57,6 +125,25 @@ function validateLength() {
   }
 
   inputLengthAlert.innerHTML = "";
+  return true;
+}
+
+function validateCheckboxes(typesCount, hasUpperCase, hasLowerCase) {
+  const outputPasswordAlert = inputLengthAlert;
+  if (typesCount === -1) {
+    outputPasswordAlert.innerHTML =
+      "Please, select at least one checkbox propriety";
+    modal1.showModal();
+    return false;
+  } else {
+    if (hasUpperCase == false && hasLowerCase == false) {
+      outputPasswordAlert.innerHTML =
+        "Please, select at least one type of letter";
+      modal1.showModal();
+      return false;
+    }
+  }
+
   return true;
 }
 
@@ -79,4 +166,16 @@ function getRandomNumber() {
 function getRandomSymbol() {
   const symbols = "!@#$%^&*(){}[]=<>/,.|~-+:";
   return symbols[getRandomInt(symbols.length)];
+}
+
+//Reset
+function reset() {
+  inputLowerCase.checked = false;
+  inputUpperCase.checked = false;
+  inputNumber.checked = false;
+  inputSymbols.checked = false;
+
+  if (passwordLength != 20) {
+    passwordLength.value = 20;
+  }
 }

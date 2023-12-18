@@ -6,7 +6,6 @@
 #form {
   /*box-model*/
   max-width: 480px;
-  max-height: 512px;
   border-radius: 16px;
 }
 
@@ -22,15 +21,10 @@ h1 {
 
 #outputPassword {
   /*box-model*/
-  width: 200px;
+  width: 320px;
 }
 
 #buttonCopy {
-  /*box-model*/
-  width: 56px;
-  height: 32px;
-  padding: 5px;
-
   /*typography*/
   font-size: 16px;
 }

@@ -59,7 +59,6 @@ body {
   /*box-model*/
   margin-top: 50px;
   max-width: 280px;
-  max-height: 464px;
   padding: 20px;
   background-color: var(--colorGreenBlue);
   border-radius: 8px;
@@ -103,7 +102,7 @@ h1 {
 
 #outputPassword {
   /*box-model*/
-  width: 190px;
+  width: 280px;
   height: 40px;
   padding: 5px;
 
@@ -112,11 +111,6 @@ h1 {
 }
 
 #buttonCopy {
-  /*box-model*/
-  width: 48px;
-  height: 32px;
-  padding: 5px;
-
   /*typography*/
   font-size: 12px;
 }
