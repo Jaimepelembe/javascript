@@ -14,6 +14,8 @@
   --colorOrangeScarletDark20: #cc2500;
   --colorGrayPlatinum: #d3d4d9;
   --colorGrayPlatinumLight50: #e9eaec;
+  --colorSpaceCadet: #22223b;
+  --colorSpaceCadetLigth10: #38384f;
 }
 
 * {
@@ -30,7 +32,6 @@
 body {
   /*box-model*/
   width: 100%;
-  height: 100vh;
 
   /*Display stuff*/
   display: flex;
@@ -90,29 +91,15 @@ h1 {
   cursor: pointer;
 }
 
-.colorOrange {
-  /*typography*/
-  background-color: var(--colorOrangeScarlet);
-}
-
-.colorOrange:hover {
-  /*typography*/
-  background-color: var(--colorOrangeScarletDark20);
-}
-
 #outputPassword {
   /*box-model*/
   width: 280px;
   height: 40px;
   padding: 5px;
+  padding-left: 10px;
 
   /*typography*/
   color: var(--colorBlackRich);
-}
-
-#buttonCopy {
-  /*typography*/
-  font-size: 12px;
 }
 
 /*container Length*/
@@ -138,6 +125,26 @@ h1 {
 }
 
 /*container buttons*/
+
+#buttonGenerate {
+  /*typography*/
+  background-color: var(--colorOrangeScarlet);
+}
+#buttonGenerate:hover {
+  /*typography*/
+  background-color: var(--colorOrangeScarletDark20);
+}
+
+#buttonCopy {
+  /*Box-model*/
+  background-color: var(--colorSpaceCadet);
+}
+
+#buttonCopy:hover {
+  /*Box-model*/
+  background-color: var(--colorSpaceCadetLigth10);
+}
+
 #buttonClean {
   /*typography*/
   background-color: var(--colorGrayPlatinumLight50);
@@ -163,6 +170,38 @@ h1 {
   padding: 10px;
   border: 1px solid var(--colorBlack);
   border-radius: 8px;
+}
+
+/*Container  Alert*/
+.containerAlert {
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+#modalInputLength {
+  margin-top: 10px;
+}
+
+/*Button*/
+.buttonModal {
+  /*box-model*/
+  width: 24px;
+  height: 24px;
+  background-color: var(--colorWhite); 
+
+  /*Display stuff*/
+  align-items: center;
+
+  /*typography*/
+  color: var(--colorBlackRichack);
+
+  /*Geral settings*/
+  cursor: pointer;
+  transition: 0.3s;
+}
+.buttonModal:hover {
+  /*box-model*/
+  color: var(--colorOrangeScarlet);
 }
 
 .imageAlert {

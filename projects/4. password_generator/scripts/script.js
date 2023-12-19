@@ -6,10 +6,9 @@ var inputUpperCase = document.getElementById("inputUpperCase");
 var inputLowerCase = document.getElementById("inputLowerCase");
 var inputNumber = document.getElementById("inputNumber");
 var inputSymbols = document.getElementById("inputSymbols");
-const buttonGenerate = document.getElementById("buttonGenerate");
-const buttonClean = document.getElementById("buttonClean");
-const buttonCopy = document.getElementById("buttonCopy");
-const form = document.getElementById("form");
+var buttonGenerate = document.getElementById("buttonGenerate");
+var buttonClean = document.getElementById("buttonClean");
+var buttonCopy = document.getElementById("buttonCopy");
 var typesCount = -1;
 
 //Modal
@@ -32,7 +31,7 @@ function getFormProprities() {
   generatePassword(length, hasUpperCase, hasLowerCase, arrayTypes);
 }
 
-//2. Filter out unchecked types
+//Filter out unchecked types
 function buildArrayTypes(hasUpperCase, hasLowerCase, hasNumber, hasSymbol) {
   var arrayTypes = {};
   var count = -1;
@@ -56,12 +55,12 @@ function buildArrayTypes(hasUpperCase, hasLowerCase, hasNumber, hasSymbol) {
   return arrayTypes;
 }
 
+//Process to generate password
+//1. Initialize the password variable
+//2. Validate the length and checkbox of Uppercase and lowercase
+//3. Loop over length call generator function for each type
+//4. Add final password to the password variable and put on outputPassword
 function generatePassword(length, hasUpperCase, hasLowerCase, arrayTypes) {
-  //1. Initialize the password variable
-  //2. Filter out unchecked types
-  //3. Loop over length call generator function for each type
-  //4. Add final password to the password variable and put on outputPassword
-
   var generatedPassword = "";
 
   if (
@@ -69,7 +68,6 @@ function generatePassword(length, hasUpperCase, hasLowerCase, arrayTypes) {
     validateCheckboxes(typesCount, hasUpperCase, hasLowerCase)
   ) {
     var randomOperation;
-    console.log("Quantidade input: ", typesCount);
     for (var i = 0; i < length; i++) {
       randomOperation = arrayTypes[getRandomInt(typesCount + 1)];
 
@@ -104,14 +102,12 @@ function validateLength() {
   if (isNaN(length)) {
     inputLengthAlert.innerHTML = "Please, insert the length of the password";
     modal1.showModal();
-
     return false;
   } else {
     if (length < 8) {
       inputLengthAlert.innerHTML =
         "The password length can't be smaller than 8";
       modal1.showModal();
-
       return false;
     }
 
@@ -119,7 +115,6 @@ function validateLength() {
       inputLengthAlert.innerHTML =
         "The password length can't be bigger than 40";
       modal1.showModal();
-
       return false;
     }
   }
@@ -129,16 +124,14 @@ function validateLength() {
 }
 
 function validateCheckboxes(typesCount, hasUpperCase, hasLowerCase) {
-  const outputPasswordAlert = inputLengthAlert;
   if (typesCount === -1) {
-    outputPasswordAlert.innerHTML =
+    inputLengthAlert.innerHTML =
       "Please, select at least one checkbox propriety";
     modal1.showModal();
     return false;
   } else {
     if (hasUpperCase == false && hasLowerCase == false) {
-      outputPasswordAlert.innerHTML =
-        "Please, select at least one type of letter";
+      inputLengthAlert.innerHTML = "Please, select at least one type of letter";
       modal1.showModal();
       return false;
     }
@@ -169,13 +162,72 @@ function getRandomSymbol() {
 }
 
 //Reset
+
+function uncheckBox(checkbox) {
+  if (checkbox.checked) {
+    checkbox.checked = false;
+  }
+}
+
 function reset() {
-  inputLowerCase.checked = false;
-  inputUpperCase.checked = false;
-  inputNumber.checked = false;
-  inputSymbols.checked = false;
+  outputPassword.value = "";
+  uncheckBox(inputUpperCase);
+  uncheckBox(inputLowerCase);
+  uncheckBox(inputNumber);
+  uncheckBox(inputSymbols);
 
   if (passwordLength != 20) {
     passwordLength.value = 20;
   }
 }
+
+/*Close modal */
+function closeModal(id) {
+  const modal = document.getElementById(id);
+  modal.close();
+}
+
+//Events
+function keyAction(eventKey) {
+  switch (eventKey) {
+    case "Enter":
+      getFormProprities();
+      break;
+
+    case "Escape":
+      reset();
+      break;
+  }
+}
+
+function keysCombination(event) {
+  if (event.ctrlKey && event.key === "c") {
+    copyPassword();
+  }
+}
+//Keyboard
+document.addEventListener("keydown", function (event) {
+  keyAction(event.key);
+  keysCombination(event);
+});
+
+//Copy the password to clipboard
+function copyPassword() {
+  var textArea = document.createElement("textArea");
+  var password = outputPassword.value;
+
+  if (!password) {
+    return;
+  } else {
+    textArea.value = password;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    textArea.remove();
+    //Modal
+    inputLengthAlert.innerHTML = "Password copied to the clipboard";
+    modal1.showModal();
+  }
+}
+
+buttonCopy.addEventListener("click", copyPassword);
