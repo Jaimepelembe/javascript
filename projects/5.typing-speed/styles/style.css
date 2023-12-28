@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap");
+
+:root {
+  /*Typography*/
+  /*Fonts*/
+  --font-title: "Roboto", sans-serif;
+  --font-content: "Roboto Mono", sans-serif;
+
+  /*Colors*/
+  --colorWhite: #fff;
+  --colorBlack: #000;
+  --colorGray: #333;
+  --colorGrayLight: #666;
+  --colorYellow: #fd4;
+}
+
+* {
+  /*Box-model*/
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+
+  /*Typography*/
+  font-family: var(--font-content);
+  font-size: 16px;
+}
+
+body {
+  /*Box-model*/
+  background-color: var(--colorGray);
+  color: var(--colorWhite);
+}
+
+main {
+  max-width: 600px;
+  margin: 50px auto;
+}
+
+.flexbox {
+  /*Display stuff*/
+  display: flex;
+  gap: 10px;
+}
+
+.title {
+  /*Box-model*/
+  color: var(--colorYellow);
+
+  /*Typography*/
+  font-family: var(--font-title);
+  font-size: 32px;
+}
+
+svg {
+  /*Box-model*/
+  width: 40px;
+  height: 40px;
+  fill: var(--colorYellow);
+}
