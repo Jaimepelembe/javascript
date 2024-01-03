@@ -12,6 +12,8 @@
   --colorGray: #333;
   --colorGrayLight: #666;
   --colorYellow: #fd4;
+  --colorRedLight40: #db4d4d;
+  --colorBlueLight: #92dce5;
 }
 
 * {
@@ -104,4 +106,18 @@ svg {
 
   /*box-model*/
   padding: 0px 20px;
+  color: var(--colorWhite);
+
+  /*typography*/
+  word-spacing: 10px;
+}
+
+.lettler.correct {
+  /*typography*/
+  color: var(--colorBlueLight);
+}
+
+.lettler.incorrect {
+  /*typography*/
+  color: var(--colorRedLight40);
 }
