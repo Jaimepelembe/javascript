@@ -3,8 +3,8 @@
 :root {
   /*Typography*/
   /*Fonts*/
-  --font-title: "Roboto", sans-serif;
-  --font-content: "Roboto Mono", sans-serif;
+  --font-title: "Roboto", monospace;
+  --font-content: "Roboto Mono", monospace;
 
   /*Colors*/
   --colorWhite: #fff;
@@ -22,7 +22,7 @@
 
   /*Typography*/
   font-family: var(--font-content);
-  font-size: 16px;
+  font-size: 20px;
 }
 
 body {
@@ -42,6 +42,17 @@ main {
   gap: 10px;
 }
 
+#containerTitle {
+  /*box-model*/
+  padding: 0px 10px;
+}
+
+#column1 {
+  /*Display stuff*/
+  justify-content: space-between;
+  align-items: center;
+}
+
 .title {
   /*Box-model*/
   color: var(--colorYellow);
@@ -56,4 +67,41 @@ svg {
   width: 40px;
   height: 40px;
   fill: var(--colorYellow);
+}
+
+.button {
+  /*box-model*/
+  width: 96px;
+  padding: 8px 16px;
+  background-color: var(--colorWhite);
+  border: none;
+  border-radius: 4px;
+
+  /*typography*/
+  font-family: var(--font-title);
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--colorBlack);
+}
+
+.button:hover {
+  /*box-model*/
+  background-color: var(--colorYellow);
+  cursor: pointer;
+}
+
+#game {
+  /*box-model*/
+  margin-top: 40px;
+  height: 112px;
+  line-height: 40px;
+  overflow: hidden;
+}
+
+#words {
+  /*Display stuff*/
+  display: inline-block;
+
+  /*box-model*/
+  padding: 0px 20px;
 }
