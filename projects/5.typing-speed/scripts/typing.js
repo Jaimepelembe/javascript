@@ -1,3 +1,11 @@
+var key;
+var currentLetter;
+var expected;
+var isLetter;
+var letter;
+var word;
+var nextLetter;
+
 var textNationalAnthem =
   "Na memória de África e do mundo Pátria bela dos que ousaram lutar Moçambique, o teu nome é liberdade O sol de junho para sempre brilhará Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada, vamos vencer Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada,  amos vencer Povo unido do Rovuma ao Maputo Colhe os frutos do combate pela paz Cresce o sonho ondulando na bandeira E vai lavrando na certeza do amanhã Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços,uma só força Oh, Pátria amada, vamos vencer Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada, vamos vencer";
 
@@ -8,9 +16,9 @@ var textMozambique =
 
 /**
  * Generate a Random integer
- * @param {Number} max -The max value that can be generated
+ * @param {Number} max -the max value that can be generated
  *
- * @returns A  number bigger than 0 and less than max
+ * @returns a number bigger than 0 and less than max
  */
 
 function getRandomInt(max) {
@@ -18,49 +26,86 @@ function getRandomInt(max) {
 }
 
 function newGame() {
-  //document.getElementById("textNationalAnthem").innerHTML = "";
-  /*for (let i = 0; i < 200; i++) {
-    document.getElementById("words").innerHTML =
-      splitWordAndSetClass(textNationalAnthem);
-  }*/
   document.getElementById("words").innerHTML =
     splitWordAndSetClass(textNationalAnthem);
-  //document.getElementById("words").innerHTML = textNationalAnthem;
-}
-
-function addClass(element, name) {
-  element.className += "" + name;
-}
-
-function removeClass(element, name) {
-  element = element.className.replace(name, "");
+  word = document.querySelector(".word");
+  word.classList.toggle("current");
+  letter = document.querySelector(".letter");
+  letter.classList.toggle("current");
+  //addClass(letter, "current");
 }
 
 newGame();
 
 document.addEventListener("keyup", function (event) {
-  verifyKey(event);
+  key = event.key;
+  currentLetter = document.querySelector(".letter.current");
+  if (currentLetter !== null && currentLetter !== undefined) {
+    expected = currentLetter.innerHTML;
+  }
+
+  isLetter = key.length === 1 && key !== "";
+  if (isLetter) {
+    colorLetter();
+    goNextLetter();
+  } else {
+    switch (key) {
+      case "Backspace":
+        actionKeyBackspace();
+        break;
+      case "":
+        goNextLetter();
+        break;
+    }
+  }
+  console.log(key, expected);
 });
 
-function verifyKey(keyEvent) {
-  if (keyEvent.key === textNationalAnthem[0]) {
-    window.alert("Ola mundo");
+function actionKeyBackspace() {
+  if (currentLetter.previousSibling !== null) {
+    currentLetter.previousSibling.style.color = "#ffffff";
+    currentLetter.previousSibling.classList.toggle("current");
+    currentLetter.classList.remove("current");
+  }
+}
+
+function goNextLetter() {
+  currentLetter.classList.remove("current");
+  currentLetter.nextSibling.classList.toggle("current");
+}
+
+function colorLetter() {
+  if (key === expected) {
+    currentLetter.style.color = "#92dce5";
+  } else {
+    currentLetter.style.color = "#db4d4d";
+  }
+}
+
+function moveCursor() {
+  const cursor = document.getElementById("cursor");
+  nextLetter = document.querySelector(".letter.current");
+  if (nextLetter) {
+    cursor.style.top = nextLetter.getBoudingClientRect().top + 2 + "px";
+    
   }
 }
 
 /**
  *The function Split the word in chars and set the class name "letter" in each character
  *
- * @param {string} word - The original word
+ * @param {string} word - the original word
  *
- * @returns The word with the class letter on each character
+ * @returns the word with the class letter on each character
  */
 
 function splitWordAndSetClass(word) {
   //Split the word by letter
   return (
+    '<div class="word">' +
     '<span class="letter">' +
     word.split("").join('</span><span class="letter">') +
-    "</span>"
+    "</span>" +
+    "</div>"
   );
 }

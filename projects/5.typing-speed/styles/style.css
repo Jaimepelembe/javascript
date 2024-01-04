@@ -112,6 +112,36 @@ svg {
   word-spacing: 10px;
 }
 
+.word {
+  /*Display stuff*/
+  position: relative;
+}
+
+#cursor {
+  /*box-model*/
+  width: 2px;
+  height: 24px;
+  background-color: var(--colorYellow);
+  position: absolute;
+  top: 136px;
+  left: 32px;
+
+  /*animations*/
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .lettler.correct {
   /*typography*/
   color: var(--colorBlueLight);
