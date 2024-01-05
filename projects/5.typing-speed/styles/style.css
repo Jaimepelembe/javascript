@@ -104,6 +104,9 @@ svg {
   /*Display stuff*/
   display: inline-block;
 
+  /*position stuff*/
+  position: relative;
+
   /*box-model*/
   padding: 0px 20px;
   color: var(--colorWhite);
@@ -112,19 +115,17 @@ svg {
   word-spacing: 10px;
 }
 
-.word {
-  /*Display stuff*/
-  position: relative;
-}
-
 #cursor {
+  /*display stuff*/
+  display: none;
+
   /*box-model*/
   width: 2px;
   height: 24px;
   background-color: var(--colorYellow);
-  position: absolute;
-  top: 136px;
-  left: 32px;
+  position: fixed;
+  top: 8px;
+  left: 20px;
 
   /*animations*/
   animation: blink 1s infinite;
@@ -140,14 +141,4 @@ svg {
   100% {
     opacity: 1;
   }
-}
-
-.lettler.correct {
-  /*typography*/
-  color: var(--colorBlueLight);
-}
-
-.lettler.incorrect {
-  /*typography*/
-  color: var(--colorRedLight40);
 }

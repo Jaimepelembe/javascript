@@ -5,6 +5,8 @@ var isLetter;
 var letter;
 var word;
 var nextLetter;
+var letterPositionLeft = 20; //nextLetter.getBoundingClientRect().left;
+var letterPositionTop = 8; //nextLetter.getBoundingClientRect().top;
 
 var textNationalAnthem =
   "Na memória de África e do mundo Pátria bela dos que ousaram lutar Moçambique, o teu nome é liberdade O sol de junho para sempre brilhará Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada, vamos vencer Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada,  amos vencer Povo unido do Rovuma ao Maputo Colhe os frutos do combate pela paz Cresce o sonho ondulando na bandeira E vai lavrando na certeza do amanhã Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços,uma só força Oh, Pátria amada, vamos vencer Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada, vamos vencer";
@@ -25,53 +27,46 @@ function getRandomInt(max) {
   return Math.ceil(Math.random() * max);
 }
 
+/**
+ *The function Split the word in chars and set the class name "letter" in each character
+ *
+ * @param {string} word - the original word
+ *
+ * @returns the word with the class letter on each character
+ */
+
+function splitWordAndSetClass(word) {
+  return (
+    '<div class="word">' +
+    '<span class="letter">' +
+    word.split("").join('</span><span class="letter">') +
+    "</span>" +
+    "</div>"
+  );
+}
+
 function newGame() {
-  document.getElementById("words").innerHTML =
+  document.getElementById("words").innerHTML +=
     splitWordAndSetClass(textNationalAnthem);
   word = document.querySelector(".word");
   word.classList.toggle("current");
   letter = document.querySelector(".letter");
   letter.classList.toggle("current");
-  //addClass(letter, "current");
 }
-
-newGame();
-
-document.addEventListener("keyup", function (event) {
-  key = event.key;
-  currentLetter = document.querySelector(".letter.current");
-  if (currentLetter !== null && currentLetter !== undefined) {
-    expected = currentLetter.innerHTML;
-  }
-
-  isLetter = key.length === 1 && key !== "";
-  if (isLetter) {
-    colorLetter();
-    goNextLetter();
-  } else {
-    switch (key) {
-      case "Backspace":
-        actionKeyBackspace();
-        break;
-      case "":
-        goNextLetter();
-        break;
-    }
-  }
-  console.log(key, expected);
-});
 
 function actionKeyBackspace() {
   if (currentLetter.previousSibling !== null) {
     currentLetter.previousSibling.style.color = "#ffffff";
     currentLetter.previousSibling.classList.toggle("current");
     currentLetter.classList.remove("current");
+    moveCursor(true);
   }
 }
 
 function goNextLetter() {
   currentLetter.classList.remove("current");
   currentLetter.nextSibling.classList.toggle("current");
+  moveCursor(true);
 }
 
 function colorLetter() {
@@ -82,30 +77,78 @@ function colorLetter() {
   }
 }
 
-function moveCursor() {
-  const cursor = document.getElementById("cursor");
+function moveCursor(right) {
+  cursor = document.getElementById("cursor");
   nextLetter = document.querySelector(".letter.current");
+  letterPositionLeft = nextLetter.getBoundingClientRect().left;
+  letterPositionTop = nextLetter.getBoundingClientRect().top;
+
   if (nextLetter) {
-    cursor.style.top = nextLetter.getBoudingClientRect().top + 2 + "px";
-    
+    cursor.style.top = letterPositionTop + "px";
+    cursor.style.display = "block";
+
+    if (right) {
+      movecursorRight();
+    } else {
+      movecursorLeft();
+    }
   }
 }
 
-/**
- *The function Split the word in chars and set the class name "letter" in each character
- *
- * @param {string} word - the original word
- *
- * @returns the word with the class letter on each character
- */
-
-function splitWordAndSetClass(word) {
-  //Split the word by letter
-  return (
-    '<div class="word">' +
-    '<span class="letter">' +
-    word.split("").join('</span><span class="letter">') +
-    "</span>" +
-    "</div>"
-  );
+function movecursorRight() {
+  cursor.style.left = letterPositionLeft + "px";
 }
+
+function movecursorLeft() {
+  letterPositionLeft = nextLetter.previousSibling.getBoundingClientRect().left;
+  cursor.style.left = letterPositionLeft + "px";
+}
+
+function keyEvents(event) {
+  key = event.key;
+  currentLetter = document.querySelector(".letter.current");
+  if (currentLetter !== null && currentLetter !== undefined) {
+    expected = currentLetter.innerHTML;
+  }
+
+  isLetter = key.length === 1 && key !== " ";
+  if (isLetter) {
+    colorLetter();
+    goNextLetter();
+  }
+
+  if (key === "Backspace") {
+    actionKeyBackspace();
+  }
+
+  if (key === " " && key === expected) {
+    goNextLetter();
+    letterPositionLeft = nextLetter.getBoundingClientRect().left;
+    cursor.style.left = letterPositionLeft + "px";
+    console.log("position space:" + letterPositionLeft);
+  } else {
+    if (key === " ") {
+      goNextLetter();
+      colorLetter(false);
+    }
+  }
+  moveWordUP();
+  console.log(key, expected);
+}
+
+function moveWordUP() {
+  if (
+    nextLetter !== null &&
+    nextLetter != undefined &&
+    cursor.getBoundingClientRect().top >= 218
+  ) {
+    var word = document.querySelector(".word.current");
+    word.style.marginTop = "-90px";
+  }
+}
+
+document.addEventListener("keyup", function (event) {
+  keyEvents(event);
+});
+
+newGame();
