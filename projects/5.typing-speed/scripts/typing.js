@@ -1,12 +1,20 @@
-var key;
-var currentLetter;
-var expected;
+var key, currentLetter, expected;
 var isLetter;
-var letter;
-var word;
-var nextLetter;
-var letterPositionLeft = 20; //nextLetter.getBoundingClientRect().left;
-var letterPositionTop = 8; //nextLetter.getBoundingClientRect().top;
+var letter, word, divWords;
+var nextLetter, previousLetter;
+var letterPositionLeft = 20;
+var letterPositionTop = 8;
+var wordMarginTop = 0,
+  isTimerStarted = false,
+  gameTimer = null;
+var timeGameStarted = null,
+  currentTime = null,
+  mileSecondsPassed = null,
+  secondsPassed = null,
+  minutesDefinedToPlay = 1,
+  secondsDefinedToPlay = null,
+  secondsLeftToPlay = null;
+timerInfo = document.getElementById("info");
 
 var textNationalAnthem =
   "Na memória de África e do mundo Pátria bela dos que ousaram lutar Moçambique, o teu nome é liberdade O sol de junho para sempre brilhará Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada, vamos vencer Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada,  amos vencer Povo unido do Rovuma ao Maputo Colhe os frutos do combate pela paz Cresce o sonho ondulando na bandeira E vai lavrando na certeza do amanhã Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços,uma só força Oh, Pátria amada, vamos vencer Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada, vamos vencer";
@@ -59,7 +67,25 @@ function actionKeyBackspace() {
     currentLetter.previousSibling.style.color = "#ffffff";
     currentLetter.previousSibling.classList.toggle("current");
     currentLetter.classList.remove("current");
+    removeTypeOfLetter(currentLetter.previousSibling, "both");
     moveCursor(true);
+  }
+}
+
+function removeTypeOfLetter(letter, typeOfLetter) {
+  switch (typeOfLetter) {
+    case "incorrect":
+      letter.classList.remove("incorrect");
+      break;
+
+    case "correct":
+      letter.classList.remove("correct");
+      break;
+
+    case "both":
+      letter.classList.remove("incorrect");
+      letter.classList.remove("correct");
+      break;
   }
 }
 
@@ -72,12 +98,16 @@ function goNextLetter() {
 function colorLetter() {
   if (key === expected) {
     currentLetter.style.color = "#92dce5";
+    removeTypeOfLetter(currentLetter, "incorrect");
+    currentLetter.classList.toggle("correct");
   } else {
     currentLetter.style.color = "#db4d4d";
+    removeTypeOfLetter(currentLetter, "correct");
+    currentLetter.classList.toggle("incorrect");
   }
 }
 
-function moveCursor(right) {
+function moveCursor(isRight) {
   cursor = document.getElementById("cursor");
   nextLetter = document.querySelector(".letter.current");
   letterPositionLeft = nextLetter.getBoundingClientRect().left;
@@ -87,19 +117,19 @@ function moveCursor(right) {
     cursor.style.top = letterPositionTop + "px";
     cursor.style.display = "block";
 
-    if (right) {
-      movecursorRight();
+    if (isRight) {
+      moveCursorRight();
     } else {
-      movecursorLeft();
+      moveCursorLeft();
     }
   }
 }
 
-function movecursorRight() {
+function moveCursorRight() {
   cursor.style.left = letterPositionLeft + "px";
 }
 
-function movecursorLeft() {
+function moveCursorLeft() {
   letterPositionLeft = nextLetter.previousSibling.getBoundingClientRect().left;
   cursor.style.left = letterPositionLeft + "px";
 }
@@ -107,6 +137,12 @@ function movecursorLeft() {
 function keyEvents(event) {
   key = event.key;
   currentLetter = document.querySelector(".letter.current");
+
+  if (document.querySelector(".over")) {
+    alert("hello");
+    return;
+  }
+
   if (currentLetter !== null && currentLetter !== undefined) {
     expected = currentLetter.innerHTML;
   }
@@ -132,7 +168,11 @@ function keyEvents(event) {
       colorLetter(false);
     }
   }
+
+  timer();
   moveWordUP();
+  moveWordDown();
+
   console.log(key, expected);
 }
 
@@ -140,11 +180,90 @@ function moveWordUP() {
   if (
     nextLetter !== null &&
     nextLetter != undefined &&
-    cursor.getBoundingClientRect().top >= 218
+    cursor.getBoundingClientRect().top > 177 //Change in the second line
   ) {
     var word = document.querySelector(".word.current");
-    word.style.marginTop = "-90px";
+    wordMarginTop -= 80;
+    word.style.marginTop = wordMarginTop + "px";
+    moveCursor(true);
   }
+}
+
+function moveWordDown() {
+  previousLetter = nextLetter.previousSibling;
+  if (
+    previousLetter !== null &&
+    previousLetter !== undefined &&
+    cursor.getBoundingClientRect().top < 137
+  ) {
+    word = document.querySelector(".word.current");
+    wordMarginTop += 80;
+    word.style.marginTop = wordMarginTop + "px";
+    moveCursor(true);
+  }
+}
+
+function timer() {
+  if (!isTimerStarted && isLetter) {
+    isTimerStarted = true;
+    gameTimer = setInterval(() => {
+      if (!timeGameStarted) {
+        timeGameStarted = new Date().getTime();
+        secondsDefinedToPlay = minutesDefinedToPlay * 60;
+      }
+      currentTime = new Date().getTime();
+      mileSecondsPassed = currentTime - timeGameStarted;
+      secondsPassed = (mileSecondsPassed / 1000).toFixed(0);
+      secondsLeftToPlay = secondsDefinedToPlay - secondsPassed;
+
+      if (secondsLeftToPlay < 0) {
+        //timerInfo.innerHTML = "0:00";
+        gameOver();
+      } else {
+        timerInfo.innerHTML =
+          Math.floor(secondsLeftToPlay / 60) + ":" + (secondsLeftToPlay % 60);
+      }
+    }, 1000);
+  }
+}
+
+function gameOver() {
+  divWords = document.getElementById("words");
+  divWords.style.opacity = "0.5";
+  cursor.style.display = "none";
+  document.getElementById("game").classList.toggle("over");
+  timerInfo.innerHTML = getWpm();
+  clearInterval(gameTimer);
+}
+
+function getWpm() {
+  // const arrayWords = [...document.querySelectorAll(".word")];
+  //  const lastTypedWord=arrayWords.indexOf(document.querySelector(".letter.current"))
+
+  word = document.querySelector(".word.current");
+  var arrayAllLetters = [...word.children]; //[...document.querySelectorAll(".letter")];
+  const indexOfLastLetter = arrayAllLetters.indexOf(
+    document.querySelector(".letter.current")
+  );
+  var incorrectLetters;
+  var correctLet;
+  var arrayTypedLetters = arrayAllLetters.slice(0, indexOfLastLetter);
+  var correctLetters = arrayTypedLetters.filter((letter) => {
+    incorrectLetters = arrayTypedLetters.filter((let) =>
+      let.className.includes("incorrect")
+    );
+
+    correctLet = arrayTypedLetters.filter((let) =>
+      let.className.includes("correct")
+    );
+
+    return (
+      incorrectLetters.length === 0 &&
+      correctLet.length === arrayAllLetters.length
+    );
+  });
+
+  return correctLetters.length * 60;
 }
 
 document.addEventListener("keyup", function (event) {
