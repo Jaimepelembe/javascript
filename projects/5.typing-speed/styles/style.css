@@ -110,9 +110,13 @@ svg {
   /*box-model*/
   padding: 0px 20px;
   color: var(--colorWhite);
+}
+.word {
+  /*Display stuff*/
+  display: inline-block;
 
   /*typography*/
-  word-spacing: 10px;
+  margin: 0px 10px;
 }
 
 #cursor {

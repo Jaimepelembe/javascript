@@ -1,4 +1,4 @@
-var key, currentLetter, expected;
+var key, currentLetter, currentWord, expected;
 var isLetter;
 var letter, word, divWords;
 var nextLetter, previousLetter;
@@ -43,6 +43,12 @@ function getRandomInt(max) {
  * @returns the word with the class letter on each character
  */
 
+function turnWordInArray(word) {
+  var array = word.split(" ");
+
+  return array;
+}
+
 function splitWordAndSetClass(word) {
   return (
     '<div class="word">' +
@@ -54,8 +60,13 @@ function splitWordAndSetClass(word) {
 }
 
 function newGame() {
-  document.getElementById("words").innerHTML +=
-    splitWordAndSetClass(textNationalAnthem);
+  var arrayWords = turnWordInArray(textNationalAnthem);
+  for (var i = 0; i < arrayWords.length; i++) {
+    document.getElementById("words").innerHTML += splitWordAndSetClass(
+      arrayWords[i]
+    );
+  }
+
   word = document.querySelector(".word");
   word.classList.toggle("current");
   letter = document.querySelector(".letter");
@@ -69,6 +80,16 @@ function actionKeyBackspace() {
     currentLetter.classList.remove("current");
     removeTypeOfLetter(currentLetter.previousSibling, "both");
     moveCursor(true);
+  }
+}
+
+function actionSpace() {
+  if (currentLetter === null) {
+    goNextWord();
+    moveCursorRight(true);
+  } else {
+    goNextLetter();
+    colorLetter(false);
   }
 }
 
@@ -89,10 +110,33 @@ function removeTypeOfLetter(letter, typeOfLetter) {
   }
 }
 
+function goNextWord() {
+  currentWord = document.querySelector(".word.current");
+  if (currentWord.nextSibling) {
+    currentWord.nextSibling.classList.toggle("current");
+    letter = currentWord.nextSibling.querySelector(".letter");
+    letter.classList.toggle("current");
+    currentWord.classList.remove("current");
+    moveCursor(true);
+  }
+}
+/*
 function goNextLetter() {
   currentLetter.classList.remove("current");
   currentLetter.nextSibling.classList.toggle("current");
   moveCursor(true);
+}*/
+
+function goNextLetter() {
+  if (currentLetter.nextSibling) {
+    currentLetter.nextSibling.classList.toggle("current");
+    currentLetter.classList.remove("current");
+    moveCursor(true);
+  } else {
+    currentLetter.classList.remove("current");
+    moveCursor(true);
+    //goNextWord();
+  }
 }
 
 function colorLetter() {
@@ -110,10 +154,10 @@ function colorLetter() {
 function moveCursor(isRight) {
   cursor = document.getElementById("cursor");
   nextLetter = document.querySelector(".letter.current");
-  letterPositionLeft = nextLetter.getBoundingClientRect().left;
-  letterPositionTop = nextLetter.getBoundingClientRect().top;
 
   if (nextLetter) {
+    letterPositionLeft = nextLetter.getBoundingClientRect().left;
+    letterPositionTop = nextLetter.getBoundingClientRect().top;
     cursor.style.top = letterPositionTop + "px";
     cursor.style.display = "block";
 
@@ -122,6 +166,8 @@ function moveCursor(isRight) {
     } else {
       moveCursorLeft();
     }
+  } else {
+    cursor.style.left = letterPositionLeft + 10 + "px";
   }
 }
 
@@ -144,7 +190,7 @@ function keyEvents(event) {
   }
 
   if (currentLetter !== null && currentLetter !== undefined) {
-    expected = currentLetter.innerHTML;
+    expected = currentLetter?.innerHTML || " ";
   }
 
   isLetter = key.length === 1 && key !== " ";
@@ -157,16 +203,8 @@ function keyEvents(event) {
     actionKeyBackspace();
   }
 
-  if (key === " " && key === expected) {
-    goNextLetter();
-    letterPositionLeft = nextLetter.getBoundingClientRect().left;
-    cursor.style.left = letterPositionLeft + "px";
-    console.log("position space:" + letterPositionLeft);
-  } else {
-    if (key === " ") {
-      goNextLetter();
-      colorLetter(false);
-    }
+  if (key === " ") {
+    actionSpace();
   }
 
   timer();
