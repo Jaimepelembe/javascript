@@ -1,6 +1,6 @@
 var key, currentLetter, currentWord, previousWord, expected;
 var isLetter;
-var letter, word, divWords;
+var letter, word;
 var nextLetter, previousLetter;
 var letterPositionLeft = 20;
 var letterPositionTop = 8;
@@ -15,6 +15,7 @@ var timeGameStarted = null,
   secondsDefinedToPlay = null,
   secondsLeftToPlay = null;
 timerInfo = document.getElementById("info");
+var buttonNewGame = document.getElementById("buttonNewGame");
 
 var textNationalAnthem =
   "Na memória de África e do mundo Pátria bela dos que ousaram lutar Moçambique, o teu nome é liberdade O sol de junho para sempre brilhará Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada, vamos vencer Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada,  amos vencer Povo unido do Rovuma ao Maputo Colhe os frutos do combate pela paz Cresce o sonho ondulando na bandeira E vai lavrando na certeza do amanhã Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços,uma só força Oh, Pátria amada, vamos vencer Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada, vamos vencer";
@@ -57,20 +58,6 @@ function splitWordAndSetClass(word) {
     "</span>" +
     "</div>"
   );
-}
-
-function newGame() {
-  var arrayWords = turnWordInArray(textNationalAnthem);
-  for (var i = 0; i < arrayWords.length; i++) {
-    document.getElementById("words").innerHTML += splitWordAndSetClass(
-      arrayWords[i]
-    );
-  }
-
-  word = document.querySelector(".word");
-  word.classList.toggle("current");
-  letter = document.querySelector(".letter");
-  letter.classList.toggle("current");
 }
 
 function actionKeyBackspace() {
@@ -195,10 +182,6 @@ function keyEvents(event) {
   key = event.key;
   currentLetter = document.querySelector(".letter.current");
 
-  if (document.querySelector(".over")) {
-    return;
-  }
-
   if (currentLetter !== null && currentLetter !== undefined) {
     expected = currentLetter?.innerHTML || " ";
   }
@@ -247,7 +230,7 @@ function moveWordDown() {
       previousLetter !== undefined &&
       cursor.getBoundingClientRect().top < 136
     ) {
-      word = document.querySelector(".word.current");
+      word = document.querySelector("#words");
       wordMarginTop += 80;
       word.style.marginTop = wordMarginTop + "px";
       moveCursor();
@@ -269,7 +252,6 @@ function timer() {
       secondsLeftToPlay = secondsDefinedToPlay - secondsPassed;
 
       if (secondsLeftToPlay < 0) {
-        //timerInfo.innerHTML = "0:00";
         gameOver();
       } else {
         timerInfo.innerHTML =
@@ -279,47 +261,87 @@ function timer() {
   }
 }
 
+function newGame() {
+  //document.querySelector(".word.current").classList.remove("current");
+  //document.querySelector("letter.current").classList.remove("current");
+
+  var arrayWords = turnWordInArray(textNationalAnthem);
+  var words = document.getElementById("words");
+  words.style.opacity = "1";
+  for (var i = 0; i < arrayWords.length; i++) {
+    words.innerHTML += splitWordAndSetClass(arrayWords[i]);
+  }
+
+  word = document.querySelector(".word");
+  word.classList.toggle("current");
+  letter = document.querySelector(".letter");
+  letter.classList.toggle("current");
+  document.getElementById("game").classList.remove("over");
+  cursor.style.display = "block";
+  moveCursor();
+}
+
 function gameOver() {
-  divWords = document.getElementById("words");
-  divWords.style.opacity = "0.5";
+  word = document.getElementById("words");
+  word.style.opacity = "0.5";
   cursor.style.display = "none";
+  timerInfo.innerHTML = getWpm() + "WPM";
   document.getElementById("game").classList.toggle("over");
-  timerInfo.innerHTML = getWpm();
+  currentWord = document.querySelector(".word.current");
+  if (currentWord) {
+    currentWord.classList.remove("current");
+  }
+  currentLetter = document.querySelector("letter.current");
+  if (currentLetter) {
+    currentLetter.classList.remove("current");
+  }
+
   clearInterval(gameTimer);
+
+  timeGameStarted = null;
+  currentTime = null;
+  mileSecondsPassed = null;
+  secondsPassed = null;
+  minutesDefinedToPlay = 1;
+  secondsDefinedToPlay = null;
+  secondsLeftToPlay = null;
 }
 
 function getWpm() {
-  // const arrayWords = [...document.querySelectorAll(".word")];
-  //  const lastTypedWord=arrayWords.indexOf(document.querySelector(".letter.current"))
+  var arrayWord = [...document.querySelectorAll(".word")];
+  var lastTypedWord = document.querySelector(".word.current");
+  const indexOfLastWord = arrayWord.indexOf(lastTypedWord);
+  var arrayTypedWords = arrayWord.slice(0, indexOfLastWord);
 
-  word = document.querySelector(".word.current");
-  var arrayAllLetters = [...word.children]; //[...document.querySelectorAll(".letter")];
-  const indexOfLastLetter = arrayAllLetters.indexOf(
-    document.querySelector(".letter.current")
-  );
-  var incorrectLetters;
-  var correctLet;
-  var arrayTypedLetters = arrayAllLetters.slice(0, indexOfLastLetter);
-  var correctLetters = arrayTypedLetters.filter((letter) => {
-    incorrectLetters = arrayTypedLetters.filter((let) =>
-      let.className.includes("incorrect")
+  var correctWords = arrayTypedWords.filter((word) => {
+    const letters = [...word.children];
+    var incorrectLetters = letters.filter((letter) =>
+      letter.className.includes("incorrect")
     );
 
-    correctLet = arrayTypedLetters.filter((let) =>
-      let.className.includes("correct")
+    var correctLetters = letters.filter((letter) =>
+      letter.className.includes("correct")
     );
-
     return (
-      incorrectLetters.length === 0 &&
-      correctLet.length === arrayAllLetters.length
+      incorrectLetters.length === 0 && correctLetters.length === letters.length
     );
   });
-
-  return correctLetters.length * 60;
+  return correctWords.length / minutesDefinedToPlay;
 }
 
 document.addEventListener("keyup", function (event) {
-  keyEvents(event);
+  if (document.querySelector(".over")) {
+    isTimerStarted = false;
+    //return;
+  } else {
+    keyEvents(event);
+  }
+});
+
+buttonNewGame.addEventListener("click", function (event) {
+  gameOver();
+  newGame();
+  alert("Ola mundo");
 });
 
 newGame();
