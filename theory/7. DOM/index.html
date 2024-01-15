@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body id="body">
+    <main>
+      <h1>Iniciando os estudos do DOM</h1>
+      <p class="paragraph">Aqui vai o resultado</p>
+      <p class="paragraph" name="par">
+        Aprendendo a usar o <strong>DOM</strong> em JavaScript
+      </p>
+      <p class="paragraph" name="par">Eu sou o melhor do mundo!</p>
+      <button class="button">Clique em mim</button>
+      <div id="container">Hello James</div>
+    </main>
+    <script>
+      var node = "button";
+      window.document.body.querySelector(node).innerText =
+        "" + window.document.charset;
+      // window.document.write(window.document.URL);
+      var info = document.getElementsByName("par");
+      window.document.write(info[0].innerText + ". ");
+
+      var corpo = window.document.body;
+      corpo.style.backgroundColor = "#1332";
+
+      var container = document.querySelector("#body");
+
+      var container = document.querySelector("#container");
+      var nome = document.createElement("div");
+      nome.id = "myName";
+      nome.innerHTML = "<strong>Ola mundo</strong>";
+
+      container.appendChild(nome);
+
+      var age = document.createElement("div");
+      age.id = "myAge";
+      age.innerText = "Tenho 24 anos";
+      container.appendChild(age);
+      alert(age.parentNode.innerText);
+      alert(container.firstChild.nextSibling.nextSibling.innerHTML);
+
+      //  body.appendChild(container);
+    </script>
+  </body>
+</html>

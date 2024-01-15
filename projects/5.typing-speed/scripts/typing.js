@@ -1,6 +1,6 @@
 var key, currentLetter, currentWord, previousWord, expected;
 var isLetter;
-var letter, word;
+var letter, word, words;
 var nextLetter, previousLetter;
 var letterPositionLeft = 20;
 var letterPositionTop = 8;
@@ -214,9 +214,9 @@ function moveWordUP() {
     currentLetter != undefined &&
     cursor.getBoundingClientRect().top > 178 //Change in the second line
   ) {
-    var word = document.querySelector("#words");
+    words = document.querySelector("#words");
     wordMarginTop -= 80;
-    word.style.marginTop = wordMarginTop + "px";
+    words.style.marginTop = wordMarginTop + "px";
     moveCursor();
   }
 }
@@ -230,9 +230,9 @@ function moveWordDown() {
       previousLetter !== undefined &&
       cursor.getBoundingClientRect().top < 136
     ) {
-      word = document.querySelector("#words");
+      words = document.querySelector("#words");
       wordMarginTop += 80;
-      word.style.marginTop = wordMarginTop + "px";
+      words.style.marginTop = wordMarginTop + "px";
       moveCursor();
     }
   }
@@ -262,11 +262,8 @@ function timer() {
 }
 
 function newGame() {
-  //document.querySelector(".word.current").classList.remove("current");
-  //document.querySelector("letter.current").classList.remove("current");
-
   var arrayWords = turnWordInArray(textNationalAnthem);
-  var words = document.getElementById("words");
+  words = document.getElementById("words");
   words.style.opacity = "1";
   for (var i = 0; i < arrayWords.length; i++) {
     words.innerHTML += splitWordAndSetClass(arrayWords[i]);
@@ -330,12 +327,7 @@ function getWpm() {
 }
 
 document.addEventListener("keyup", function (event) {
-  if (document.querySelector(".over")) {
-    isTimerStarted = false;
-    //return;
-  } else {
-    keyEvents(event);
-  }
+  keyEvents(event);
 });
 
 buttonNewGame.addEventListener("click", function (event) {

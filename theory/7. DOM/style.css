@@ -1,0 +1,42 @@
+* {
+  /*box model*/
+  margin: 0px;
+  padding: 0px;
+
+  /*typography*/
+  font-size: 16px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+main {
+  /*box model*/
+  max-width: 600px;
+  margin-top: 40px;
+
+  /*display stuff*/
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  /*box model*/
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: aqua;
+
+  /*typography*/
+  font-size: 12px;
+  color: black;
+}
+
+.button:hover {
+  /*box model*/
+  background-color: blue;
+
+  /*typography*/
+  color: white;
+}
