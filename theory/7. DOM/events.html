@@ -70,6 +70,19 @@
           alert("tecla A foi pressionada");
         }
       });
+
+      //Event of page loading
+      window.addEventListener("DOMContentLoaded", function (event) {
+        alert("HTML completamente carregado!");
+      });
+
+      window.addEventListener("load", function (event) {
+        alert("Documento completamente carregado!");
+      });
+
+      window.addEventListener("beforeunload", function (event) {
+        event.returnValue = "Carrega";
+      });
     </script>
   </body>
 </html>
