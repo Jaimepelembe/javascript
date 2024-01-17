@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events DOM</title>
+    <style>
+      body {
+        /*display stuff*/
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+      }
+
+      .area {
+        /*Box model*/
+        width: 200px;
+        height: 200px;
+        background-color: green;
+        color: white;
+
+        /*Typography*/
+        line-height: 200px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="area1" class="area">Area 1</div>
+
+    <div id="area2" class="area">Area 2</div>
+
+    <div id="area3" class="area">Area 3</div>
+
+    <script>
+      var areas = document.querySelectorAll(".area");
+
+      areas.forEach((area) => {
+        area.addEventListener("click", function (event) {
+          press(area);
+        });
+
+        area.addEventListener("mouseenter", function (event) {
+          enter(area);
+        });
+
+        area.addEventListener("mouseleave", function (event) {
+          leave(area);
+        });
+      });
+
+      function press(area) {
+        area.innerText = "Clicou";
+        area.style.backgroundColor = "red";
+      }
+
+      function enter(area) {
+        area.innerText = "Entrou";
+        area.style.backgroundColor = "blue";
+      }
+
+      function leave(area) {
+        area.innerText = "Saiu";
+        area.style.backgroundColor = "green";
+      }
+
+      document.addEventListener("keydown", function (event) {
+        console.log(event.key);
+        if (event.key === "A") {
+          alert("tecla A foi pressionada");
+        }
+      });
+    </script>
+  </body>
+</html>

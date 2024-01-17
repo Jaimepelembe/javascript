@@ -14,19 +14,31 @@
         Aprendendo a usar o <strong>DOM</strong> em JavaScript
       </p>
       <p class="paragraph" name="par">Eu sou o melhor do mundo!</p>
-      <button class="button">Clique em mim</button>
+      <button class="button"><a href=""> Clique em mim</a></button>
       <div id="container">Hello James</div>
     </main>
     <script>
       var node = "button";
-      window.document.body.querySelector(node).innerText =
-        "" + window.document.charset;
+      var button = window.document.querySelector(".button");
       // window.document.write(window.document.URL);
+
+      button.addEventListener("mouseenter", function () {
+        alert("butao movido");
+      });
+      button.addEventListener("mouseleave", function () {
+        alert("Ponteiro do mouse saiu");
+      });
+
+      button.onclick = function () {
+        // button.classList.toggle("button");
+        //alert("butao clicado");
+      };
+
       var info = document.getElementsByName("par");
       window.document.write(info[0].innerText + ". ");
 
       var corpo = window.document.body;
-      corpo.style.backgroundColor = "#1332";
+      corpo.style.backgroundColor = "#133";
 
       var container = document.querySelector("#body");
 
@@ -41,8 +53,8 @@
       age.id = "myAge";
       age.innerText = "Tenho 24 anos";
       container.appendChild(age);
-      alert(age.parentNode.innerText);
-      alert(container.firstChild.nextSibling.nextSibling.innerHTML);
+      // alert(age.parentNode.innerText);
+      //alert(container.firstChild.nextSibling.nextSibling.innerHTML);
 
       //  body.appendChild(container);
     </script>
