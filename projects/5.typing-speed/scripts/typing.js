@@ -177,7 +177,6 @@ function keyEvents(event) {
   key = event.key;
 
   //const charcode = event.charCode || event.keyCode;
-
   //key = String.fromCharCode(charcode);
   currentLetter = document.querySelector(".letter.current");
 
@@ -220,25 +219,18 @@ function moveWordUP() {
 }
 
 function moveWordDown() {
-  currentLetter = document.querySelector(".letter.current");
-  if (currentLetter.previousSibling) {
-    previousLetter = currentLetter.previousSibling;
-    if (
-      previousLetter !== null &&
-      previousLetter !== undefined &&
-      cursor.getBoundingClientRect().top < 137
-    ) {
-      words = document.querySelector("#words");
-      wordMarginTop += 80;
-      words.style.marginTop = wordMarginTop + "px";
-      moveCursor();
-    }
+  if (cursor.getBoundingClientRect().top < 136 && currentWord.previousSibling) {
+    words = document.querySelector("#words");
+    wordMarginTop += 80;
+    words.style.marginTop = wordMarginTop + "px";
+    moveCursor();
   }
 }
 
 function timer() {
   if (!isTimerStarted && isLetter) {
     isTimerStarted = true;
+
     gameTimer = setInterval(() => {
       if (!timeGameStarted) {
         timeGameStarted = new Date().getTime();
@@ -317,12 +309,13 @@ document.addEventListener("keyup", function (event) {
     actionKeyBackspace();
   }
 
-  if (currentLetter) {
+  if (currentLetter && currentLetter.previousSibling === null) {
     moveWordDown();
   }
 });
 
 buttonNewGame.addEventListener("click", function (event) {
+  clearInterval(gameTimer);
   location.reload(); //Reload the page
 });
 
