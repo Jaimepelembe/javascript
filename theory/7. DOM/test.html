@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var letter = "a";
+      var i = 0;
+      document.addEventListener("keypress", function (event) {
+        var charcode = event.charCode || event.keyCode;
+
+        var character = String.fromCharCode(charcode);
+        if (letter === character) {
+          console.log("Ola mundo" + i);
+          //  console.log(character.length);
+
+          i++;
+        }
+      });
+    </script>
+  </body>
+</html>

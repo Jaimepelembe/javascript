@@ -67,7 +67,7 @@ function actionKeyBackspace() {
     goPreviousLetter();
   } else {
     currentLetter = currentWord.lastElementChild;
-    currentLetter.style.color = "#ffffff";
+    // currentLetter.style.color = "#ffffff";
     currentLetter.classList.toggle("current");
     removeTypeOfLetter(currentLetter, "both");
     moveCursor();
@@ -141,7 +141,6 @@ function goNextLetter() {
 
 function goPreviousLetter() {
   if (currentLetter.previousSibling !== null) {
-    currentLetter.previousSibling.style.color = "#ffffff";
     currentLetter.previousSibling.classList.toggle("current");
     currentLetter.classList.remove("current");
     removeTypeOfLetter(currentLetter.previousSibling, "both");
@@ -153,12 +152,8 @@ function goPreviousLetter() {
 
 function colorLetter() {
   if (key === expected) {
-    currentLetter.style.color = "#92dce5";
-    removeTypeOfLetter(currentLetter, "incorrect");
     currentLetter.classList.toggle("correct");
   } else {
-    currentLetter.style.color = "#db4d4d";
-    removeTypeOfLetter(currentLetter, "correct");
     currentLetter.classList.toggle("incorrect");
   }
 }
@@ -170,7 +165,7 @@ function moveCursor() {
   if (currentLetter) {
     letterPositionLeft = currentLetter.getBoundingClientRect().left;
     letterPositionTop = currentLetter.getBoundingClientRect().top;
-    cursor.style.display = "block";
+
     cursor.style.top = letterPositionTop + "px";
     cursor.style.left = letterPositionLeft + "px";
   } else {
@@ -180,10 +175,18 @@ function moveCursor() {
 
 function keyEvents(event) {
   key = event.key;
+
+  //const charcode = event.charCode || event.keyCode;
+
+  //key = String.fromCharCode(charcode);
   currentLetter = document.querySelector(".letter.current");
 
+  if (document.querySelector("#game.over")) {
+    document.removeEventListener("keyup", function (event) {});
+    return;
+  }
   if (currentLetter !== null && currentLetter !== undefined) {
-    expected = currentLetter?.innerHTML || " ";
+    expected = currentLetter?.innerText || " ";
   }
 
   isLetter = key.length === 1 && key !== " ";
@@ -192,17 +195,12 @@ function keyEvents(event) {
     goNextLetter();
   }
 
-  if (key === "Backspace") {
-    actionKeyBackspace();
-  }
-
   if (key === " ") {
     actionSpace();
   }
 
   timer();
   moveWordUP();
-  moveWordDown();
 
   console.log(key, expected);
 }
@@ -228,7 +226,7 @@ function moveWordDown() {
     if (
       previousLetter !== null &&
       previousLetter !== undefined &&
-      cursor.getBoundingClientRect().top < 136
+      cursor.getBoundingClientRect().top < 137
     ) {
       words = document.querySelector("#words");
       wordMarginTop += 80;
@@ -260,48 +258,30 @@ function timer() {
     }, 1000);
   }
 }
-
-function newGame() {
+function setWords() {
   var arrayWords = turnWordInArray(textNationalAnthem);
   words = document.getElementById("words");
-  words.style.opacity = "1";
+  words.innerHTML = "";
   for (var i = 0; i < arrayWords.length; i++) {
     words.innerHTML += splitWordAndSetClass(arrayWords[i]);
   }
-
+}
+function newGame() {
+  cursor.style.display = "none";
+  setWords();
   word = document.querySelector(".word");
   word.classList.toggle("current");
   letter = document.querySelector(".letter");
   letter.classList.toggle("current");
-  document.getElementById("game").classList.remove("over");
   cursor.style.display = "block";
   moveCursor();
 }
 
 function gameOver() {
-  word = document.getElementById("words");
-  word.style.opacity = "0.5";
   cursor.style.display = "none";
   timerInfo.innerHTML = getWpm() + "WPM";
   document.getElementById("game").classList.toggle("over");
-  currentWord = document.querySelector(".word.current");
-  if (currentWord) {
-    currentWord.classList.remove("current");
-  }
-  currentLetter = document.querySelector("letter.current");
-  if (currentLetter) {
-    currentLetter.classList.remove("current");
-  }
-
   clearInterval(gameTimer);
-
-  timeGameStarted = null;
-  currentTime = null;
-  mileSecondsPassed = null;
-  secondsPassed = null;
-  minutesDefinedToPlay = 1;
-  secondsDefinedToPlay = null;
-  secondsLeftToPlay = null;
 }
 
 function getWpm() {
@@ -326,14 +306,24 @@ function getWpm() {
   return correctWords.length / minutesDefinedToPlay;
 }
 
-document.addEventListener("keyup", function (event) {
+document.addEventListener("keypress", function (event) {
   keyEvents(event);
 });
 
+document.addEventListener("keyup", function (event) {
+  var key = event.key;
+  currentLetter = document.querySelector(".letter.current");
+  if (key === "Backspace") {
+    actionKeyBackspace();
+  }
+
+  if (currentLetter) {
+    moveWordDown();
+  }
+});
+
 buttonNewGame.addEventListener("click", function (event) {
-  gameOver();
-  newGame();
-  alert("Ola mundo");
+  location.reload(); //Reload the page
 });
 
 newGame();

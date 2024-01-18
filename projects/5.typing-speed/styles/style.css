@@ -98,6 +98,12 @@ svg {
   height: 112px;
   line-height: 40px;
   overflow: hidden;
+  opacity: 1;
+}
+
+#game.over {
+  /*box-model*/
+  opacity: 0.5;
 }
 
 #words {
@@ -121,7 +127,7 @@ svg {
 
 #cursor {
   /*display stuff*/
-  display: none;
+  display: block;
 
   /*box-model*/
   width: 2px;
@@ -133,6 +139,20 @@ svg {
 
   /*animations*/
   animation: blink 1s infinite;
+}
+
+/*Letter styles*/
+.letter {
+  /*box-model*/
+  color: var(--colorWhite);
+}
+.letter.correct {
+  /*box-model*/
+  color: var(--colorBlueLight);
+}
+.letter.incorrect {
+  /*box-model*/
+  color: var(--colorRedLight40);
 }
 
 @keyframes blink {
