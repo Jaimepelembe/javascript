@@ -15,10 +15,10 @@ var timeGameStarted = null,
   secondsDefinedToPlay = null,
   secondsLeftToPlay = null;
 timerInfo = document.getElementById("info");
-var buttonRestart = document.getElementById("buttonRestart");
+var buttonNewGame = document.getElementById("buttonNewGame");
 var buttonPlay = document.getElementById("buttonPlay");
 var timeSelect = document.getElementById("timeSelect").value;
-//cursor.style.display = "none";
+cursor.style.display = "none";
 
 var textNationalAnthem =
   "Na memória de África e do mundo Pátria bela dos que ousaram lutar Moçambique, o teu nome é liberdade O sol de junho para sempre brilhará Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada, vamos vencer Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada, vamos vencer Povo unido do Rovuma ao Maputo Colhe os frutos do combate pela paz Cresce o sonho ondulando na bandeira E vai lavrando na certeza do amanhã Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços,uma só força Oh, Pátria amada, vamos vencer Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada, vamos vencer";
@@ -351,9 +351,10 @@ function newGame() {
 function gameOver() {
   cursor.style.display = "none";
   timerInfo.style.display = "none";
-  document.getElementById("labelTimer").style.display = "none";
+  document.getElementById("hourGlass").style.display = "none";
   document.getElementById("game").classList.toggle("over");
   clearInterval(gameTimer);
+  showModal();
 }
 
 function getWpm() {
@@ -399,7 +400,7 @@ document.addEventListener("keyup", function (event) {
   }
 });
 
-buttonRestart.addEventListener("click", function (event) {
+buttonNewGame.addEventListener("click", function (event) {
   clearInterval(gameTimer);
   window.location.reload(); //Reload the page
 });
@@ -423,8 +424,8 @@ function hideElements() {
 function showHidenElements() {
   var containerTimer = document.getElementById("containerTimer");
   containerTimer.style.display = "flex";
-  var buttonRestart = document.getElementById("buttonRestart");
-  buttonRestart.style.display = "block";
+  var buttonNewGame = document.getElementById("buttonNewGame");
+  buttonNewGame.style.display = "block";
 }
 
 //Modal

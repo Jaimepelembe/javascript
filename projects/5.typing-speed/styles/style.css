@@ -120,6 +120,12 @@ label {
   font-size: 14px;
 }
 
+#hourGlass {
+  /*box model*/
+  width: 24px;
+  height: 24px;
+}
+
 #paragraph {
   /*Box model*/
   margin-top: 20px;
@@ -147,15 +153,16 @@ label {
   cursor: pointer;
 }
 
-#buttonRestart {
+#buttonNewGame {
   /*box model*/
+  width: 152px;
   background-color: var(--colorWhite);
 
   /*display stuff*/
   display: none;
 }
 
-#buttonRestart:hover {
+#buttonNewGame:hover {
   /*box model*/
   background-color: var(--colorRedLight40);
   color: var(--colorWhite);
