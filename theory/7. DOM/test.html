@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body>
+  <body id="body">
+    <h1>Hello</h1>
     <script>
-      var letter = "a";
+      // var letter = "<div class='letter'>a</div>";
+      letter = document.createElement("div");
+      letter.innerText = "a";
+      var body = document.getElementById("body");
+      body.appendChild(letter);
       var i = 0;
-      document.addEventListener("keypress", function (event) {
+
+      /*  document.addEventListener("keypress", function (event) {
         var charcode = event.charCode || event.keyCode;
 
         var character = String.fromCharCode(charcode);
@@ -19,7 +25,7 @@
 
           i++;
         }
-      });
+      });*/
     </script>
   </body>
 </html>

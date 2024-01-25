@@ -1,0 +1,21 @@
+@import "tablet.css";
+
+#main {
+  max-width: 1000px;
+}
+
+/*Letter styles*/
+.letter {
+  /*typography*/
+  font-size: 32px;
+}
+
+#game {
+  /*box-model*/
+  height: 132px;
+}
+
+#cursor {
+  /*box-model*/
+  height: 36px;
+}

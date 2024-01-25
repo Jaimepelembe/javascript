@@ -1,0 +1,23 @@
+@import "style.css";
+
+
+#main {
+  max-width: 800px;
+
+}
+
+/*Letter styles*/
+.letter {
+  /*typography*/
+  font-size: 24px;
+}
+
+#game {
+  /*box-model*/
+  height: 122px;
+}
+
+#cursor {
+  /*box-model*/
+  height: 32px;
+}

@@ -13,6 +13,7 @@
   --colorGrayLight: #666;
   --colorYellow: #fd4;
   --colorRedLight40: #db4d4d;
+  --colorRedDarkLight: #ff6666;
   --colorBlueLight: #92dce5;
 }
 
@@ -33,26 +34,54 @@ body {
   color: var(--colorWhite);
 }
 
-main {
-  max-width: 800px;
+#main {
+  max-width: 600px;
   margin: 50px auto;
 }
 
 .flexbox {
+  /*Box model*/
+  width: 100%;
+
   /*Display stuff*/
   display: flex;
   gap: 10px;
 }
 
-#containerTitle {
+#containerHeader {
   /*box-model*/
+  max-width: 420px;
   padding: 0px 10px;
+
+  /*Display stuff*/
+  flex-direction: row;
+  gap: 30px;
 }
 
-#column1 {
-  /*Display stuff*/
-  justify-content: space-between;
+#containerLogo {
+  /*Box model*/
+  width: 240px;
+}
+
+svg {
+  /*Box-model*/
+  width: 40px;
+  height: 40px;
+  fill: var(--colorYellow);
+}
+
+#containerInput {
+  /*Box model*/
+  width: 296px;
+  gap: 20px;
+}
+
+#containerSelect {
+  /*display stuff*/
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  gap: 10px;
 }
 
 .title {
@@ -64,11 +93,31 @@ main {
   font-size: 32px;
 }
 
-svg {
-  /*Box-model*/
-  width: 40px;
-  height: 40px;
-  fill: var(--colorYellow);
+.list {
+  /*box-model*/
+  width: 60px;
+  padding: 4px 8px;
+  background-color: var(--colorWhite);
+  border-radius: 4px;
+  outline: none;
+
+  /*typography*/
+  font-size: 16px;
+}
+
+#containerTimer {
+  /*display stuff*/
+  display: none;
+}
+label {
+  /*typograph*/
+  font-size: 14px;
+}
+
+#paragraph {
+  /*Box model*/
+  margin-top: 20px;
+  padding: 0 10px;
 }
 
 .button {
@@ -90,6 +139,23 @@ svg {
   /*box-model*/
   background-color: var(--colorYellow);
   cursor: pointer;
+}
+
+#buttonRestart {
+  /*box model*/
+  background-color: var(--colorWhite);
+
+  /*display stuff*/
+  display: none;
+}
+
+#buttonRestart:hover {
+  /*box model*/
+  background-color: var(--colorRedLight40);
+  color: var(--colorWhite);
+
+  /*display stuff*/
+  display: none;
 }
 
 #game {
