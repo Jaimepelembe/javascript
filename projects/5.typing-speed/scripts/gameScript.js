@@ -248,8 +248,6 @@ function keyEvents(event) {
       goNextLetter();
     }
   }
-
-  console.log(key, expected);
 }
 function actionKeyBackspace() {
   currentWord = document.querySelector(".word.current");
@@ -406,13 +404,13 @@ buttonNewGame.addEventListener("click", function (event) {
 });
 
 buttonPlay.addEventListener("click", function (event) {
-  hideElements();
-  showHidenElements();
+  hideElementsBeforePlay();
+  showElementsPlaying();
   newGame();
   timer();
 });
 
-function hideElements() {
+function hideElementsBeforePlay() {
   var containerSelect = document.getElementById("containerSelect");
   containerSelect.style.display = "none";
   var buttonPlay = document.getElementById("buttonPlay");
@@ -421,7 +419,7 @@ function hideElements() {
   paragraph.style.display = "none";
 }
 
-function showHidenElements() {
+function showElementsPlaying() {
   var containerTimer = document.getElementById("containerTimer");
   containerTimer.style.display = "flex";
   var buttonNewGame = document.getElementById("buttonNewGame");
@@ -449,7 +447,6 @@ function closeModal(id) {
 }
 
 /*Sounds*/
-
 function toggleSound() {
   var sound = document.querySelector("#containerSound");
   var iconeSound = document.querySelector("#containerSound.on");
