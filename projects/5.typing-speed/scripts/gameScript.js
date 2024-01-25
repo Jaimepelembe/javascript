@@ -19,6 +19,7 @@ var buttonNewGame = document.getElementById("buttonNewGame");
 var buttonPlay = document.getElementById("buttonPlay");
 var timeSelect = document.getElementById("timeSelect").value;
 cursor.style.display = "none";
+var isSoundEnable = true;
 
 var textNationalAnthem =
   "Na memória de África e do mundo Pátria bela dos que ousaram lutar Moçambique, o teu nome é liberdade O sol de junho para sempre brilhará Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada, vamos vencer Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada, vamos vencer Povo unido do Rovuma ao Maputo Colhe os frutos do combate pela paz Cresce o sonho ondulando na bandeira E vai lavrando na certeza do amanhã Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços,uma só força Oh, Pátria amada, vamos vencer Moçambique, nossa terra gloriosa Pedra a pedra construindo um novo dia Milhões de braços, uma só força Oh, Pátria amada, vamos vencer";
@@ -45,9 +46,6 @@ var arrayTexts = [
 
 var arrayUsedIndex = [],
   lengthUsedIndex = 0;
-
-//import timeSelect from "./indexScript.js";
-//alert(timeSelect);
 
 /**
  * Generate a Random integer
@@ -191,8 +189,10 @@ function goPreviousLetter() {
 function colorLetter() {
   if (key === expected) {
     currentLetter.classList.toggle("correct");
+    playMusic("correct");
   } else {
     currentLetter.classList.toggle("incorrect");
+    playMusic("incorrect");
   }
 }
 
@@ -446,4 +446,31 @@ function setMessageOnModal() {
 function closeModal(id) {
   const modal = document.getElementById(id);
   modal.close();
+}
+
+/*Sounds*/
+
+function toggleSound() {
+  var sound = document.querySelector("#containerSound");
+  var iconeSound = document.querySelector("#containerSound.on");
+  if (iconeSound) {
+    isSoundEnable = false;
+  } else {
+    isSoundEnable = true;
+  }
+
+  sound.classList.toggle("on");
+}
+
+function playMusic(typeMusic) {
+  if (isSoundEnable) {
+    var audio;
+    if (typeMusic === "correct") {
+      audio = new Audio("sound/smw_kick.wav");
+    } else {
+      audio = new Audio("sound/smb_bump.wav");
+    }
+
+    audio.play();
+  }
 }

@@ -15,6 +15,7 @@
   --colorRedLight40: #db4d4d;
   --colorRedDarkLight: #ff6666;
   --colorBlueLight: #92dce5;
+  --colorBlueTeal: #087e8b;
 }
 
 * {
@@ -56,11 +57,12 @@ body {
 
 #containerHeader {
   /*box-model*/
-  max-width: 420px;
+  max-width: 800px;
   padding: 0px 10px;
 
   /*Display stuff*/
   flex-direction: row;
+  justify-content: space-between;
   gap: 30px;
 }
 
@@ -78,7 +80,7 @@ svg {
 
 #containerInput {
   /*Box model*/
-  width: 296px;
+  max-width: 320px;
   gap: 20px;
 }
 
@@ -114,6 +116,8 @@ svg {
 #containerTimer {
   /*display stuff*/
   display: none;
+  /*box model*/
+  width: 120px;
 }
 label {
   /*typograph*/
@@ -155,7 +159,7 @@ label {
 
 #buttonNewGame {
   /*box model*/
-  width: 152px;
+  width: 96px;
   background-color: var(--colorWhite);
 
   /*display stuff*/
@@ -169,6 +173,24 @@ label {
 
   /*display stuff*/
   display: none;
+}
+
+#containerSound.on {
+  /*box model*/
+  background-image: url(../images/sound.png);
+}
+
+#containerSound {
+  /*box model*/
+  width: 32px;
+  height: 32px;
+  background-image: url(../images/no-sound.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+#containerSound:hover {
+  cursor: pointer;
 }
 
 #game {
@@ -313,5 +335,5 @@ label {
 #alertMessage {
   /*typograph*/
   font-size: 20px;
-  color: var(--colorRedDarkLight);
+  color: var(--colorBlueTeal);
 }
