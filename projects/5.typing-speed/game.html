@@ -56,9 +56,9 @@
           </div>
 
           <!--Timer information-->
-          <div id="containerTimer" class="flexbox">
+          <div id="containerTimer" class="flexbox flexboxRow">
             <div id="info"></div>
-            <label for="info" id="labelTimer">Minutes</label>
+            <label for="info" id="labelTimer">Time</label>
           </div>
 
           <!--Button-->
@@ -74,6 +74,41 @@
         <div id="words"></div>
         <div id="cursor"></div>
       </section>
+
+      <!--Modal-->
+      <dialog id="modal1" class="modal">
+        <!--header-->
+        <div class="modalHeader flexbox flexboxRow">
+          <div class="containerAlert flexbox flexboxRow">
+            <div class="image imageCelebration"></div>
+            <span class="Congratulations">Congratulations</span>
+          </div>
+          <!--Button close-->
+          <button
+            id="buttonModal"
+            class="button"
+            onclick="closeModal('modal1')"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="35"
+              height="35"
+              fill="currentColor"
+              id="iconeX"
+              class="bi bi-x"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+              />
+            </svg>
+          </button>
+        </div>
+        <!--body-->
+        <div id="containerMessage" class="modalBody">
+          <span id="alertMessage" class="messageAlert"></span>
+        </div>
+      </dialog>
     </main>
   </body>
   <script src="scripts/gameScript.js"></script>

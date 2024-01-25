@@ -1,15 +1,18 @@
 @import "style.css";
 
-
 #main {
   max-width: 800px;
-
 }
 
 /*Letter styles*/
 .letter {
   /*typography*/
   font-size: 24px;
+}
+
+label {
+  /*typograph*/
+  font-size: 16px;
 }
 
 #game {

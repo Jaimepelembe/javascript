@@ -48,6 +48,12 @@ body {
   gap: 10px;
 }
 
+.flexboxRow {
+  /*Display stuff*/
+  flex-direction: row;
+  align-items: center;
+}
+
 #containerHeader {
   /*box-model*/
   max-width: 420px;
@@ -231,4 +237,74 @@ label {
   100% {
     opacity: 1;
   }
+}
+
+/*Modal*/
+.modal {
+  /*Display stuff*/
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  z-index: 10;
+  gap: 20px;
+
+  /*box-model*/
+  width: 100vw;
+  max-width: 320px;
+  padding: 20px 10px;
+  border: 1px solid var(--colorBlack);
+  border-radius: 8px;
+}
+
+/*Container  Alert*/
+.containerAlert {
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+/*Button*/
+#buttonModal {
+  /*box-model*/
+  width: 48px;
+  background-color: var(--colorWhite);
+  color: var(--colorBlack);
+
+  /*Display stuff*/
+  align-items: center;
+
+  /*Geral settings*/
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#iconeX {
+  /*box-model*/
+  width: 28px;
+  height: 28px;
+  fill: var(--colorBlack);
+}
+
+#iconeX:hover {
+  /*box-model*/
+  fill: var(--colorRedDarkLight);
+}
+
+.imageCelebration {
+  /*box model*/
+  width: 32px;
+  height: 32px;
+  background-image: url(../images/congratulation.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#containerMessage {
+  /*box model*/
+  margin-top: 20px;
+}
+
+#alertMessage {
+  /*typograph*/
+  font-size: 20px;
+  color: var(--colorRedDarkLight);
 }

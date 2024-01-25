@@ -75,11 +75,9 @@ function turnTextInArrayWords(texts) {
 
 function splitWordAndSetClass(word) {
   return (
-    // '<div class="word">' +
     '<span class="letter">' +
     word.split("").join('</span><span class="letter">') +
-    "</span>" //+
-    // "</div>"
+    "</span>"
   );
 }
 
@@ -228,15 +226,19 @@ function pixelToMoveCursor() {
   }
 }
 
+function stopKeyListener() {
+  if (document.querySelector("#game.over")) {
+    document.removeEventListener("keyup", function (event) {});
+    return;
+  }
+}
 function keyEvents(event) {
   key = event.key;
   currentLetter = document.querySelector(".letter.current");
   currentWord = document.querySelector(".word.current");
 
-  if (document.querySelector("#game.over")) {
-    document.removeEventListener("keyup", function (event) {});
-    return;
-  }
+  stopKeyListener();
+
   if (currentLetter !== null && currentLetter !== undefined) {
     expected = currentLetter.innerText;
 
@@ -246,7 +248,7 @@ function keyEvents(event) {
       goNextLetter();
     }
   }
-  // timer();
+
   console.log(key, expected);
 }
 function actionKeyBackspace() {
@@ -333,6 +335,7 @@ function timer() {
 }
 
 function newGame() {
+  var timeSelect = document.getElementById("timeSelect").value;
   minutesDefinedToPlay = Number(timeSelect); //Takes the time selected on the list
 
   //word configuration
@@ -347,7 +350,8 @@ function newGame() {
 
 function gameOver() {
   cursor.style.display = "none";
-  timerInfo.innerHTML = getWpm() + "WPM";
+  timerInfo.style.display = "none";
+  document.getElementById("labelTimer").style.display = "none";
   document.getElementById("game").classList.toggle("over");
   clearInterval(gameTimer);
 }
@@ -382,6 +386,8 @@ document.addEventListener("keyup", function (event) {
   var key = event.key;
   currentLetter = document.querySelector(".letter.current");
   currentWord = document.querySelector(".word.current");
+  stopKeyListener();
+
   if (key === "Backspace") {
     moveWordDown();
     actionKeyBackspace();
@@ -416,7 +422,27 @@ function hideElements() {
 
 function showHidenElements() {
   var containerTimer = document.getElementById("containerTimer");
-  containerTimer.style.display = "block";
+  containerTimer.style.display = "flex";
   var buttonRestart = document.getElementById("buttonRestart");
   buttonRestart.style.display = "block";
+}
+
+//Modal
+
+/*show modal */
+function showModal() {
+  var modal1 = document.getElementById("modal1");
+  setMessageOnModal();
+  modal1.showModal();
+}
+
+function setMessageOnModal() {
+  var span = document.getElementById("alertMessage");
+  span.innerHTML = "Your speed is " + getWpm() + " WPM";
+}
+
+/*Close modal */
+function closeModal(id) {
+  const modal = document.getElementById(id);
+  modal.close();
 }

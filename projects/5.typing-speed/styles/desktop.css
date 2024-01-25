@@ -10,6 +10,11 @@
   font-size: 32px;
 }
 
+label {
+  /*typograph*/
+  font-size: 18px;
+}
+
 #game {
   /*box-model*/
   height: 132px;
