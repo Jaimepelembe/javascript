@@ -9,7 +9,7 @@
   /*Colors*/
   --colorWhite: #fff;
   --colorBlack: #000;
-  --colorBlueLight: #219ebc;
+  --coloBluePicton: #00a7e1;
   --colorBlueDark30: #176f84;
 }
 
@@ -56,7 +56,7 @@ a {
 
 .link {
   /*typography*/
-  color: var(--colorBlueLight);
+  color: var(--coloBluePicton);
 }
 .link:hover {
   /*typography*/

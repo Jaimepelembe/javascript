@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event delegation</title>
+
+    <style>
+      li {
+        list-style: circle;
+      }
+
+      .selected {
+        color: red;
+        list-style: disc;
+      }
+    </style>
+  </head>
+  <body>
+    <!--List of elements-->
+
+    <ul id="myList">
+      <li class="element-list">Item 1</li>
+      <li>Item 2</li>
+      <li>Item 3</li>
+      <li>Item 4</li>
+    </ul>
+  </body>
+
+  <script>
+    var myList = document.getElementById("myList");
+
+    //Event delegation
+    myList.addEventListener(
+      "click",
+      function (event) {
+        if (event.target.matches("li")) {
+          event.target.classList.toggle("selected");
+          console.log("clicou no item: ", event.target.innerText);
+        }
+      },
+      true
+    );
+
+    var element = document.createElement("li");
+    element.innerText = "Item 5";
+    myList.appendChild(element);
+  </script>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Manipulation</title>
+  </head>
+  <body>
+    <ul id="containerElements"></ul>
+  </body>
+
+  <script>
+    var ul = document.querySelector("ul");
+
+    for (var i = 0; i < 5; i++) {
+      var li = document.createElement("li");
+      li.className = "list-element";
+      li.innerText = "element " + (i + 1);
+      li.setAttribute("id", "list" + i);
+      li.removeAttribute("list" + i);
+
+      var div = document.createElement("div");
+      div.className = "container";
+      div.innerText = "Hello word";
+      li.appendChild(div);
+
+      ul.appendChild(li);
+    }
+  </script>
+</html>

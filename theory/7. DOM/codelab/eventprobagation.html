@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event probagation</title>
+    <style>
+      :root {
+        --colorWhite: #fff;
+        --colorBlack: #000;
+        --colorGreenOffice: #157f1f;
+      }
+
+      .div {
+        /*box model*/
+        padding: 20px;
+        border: 8px solid var(--colorBlack);
+
+        /*display stuff*/
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      #div2 {
+        /*box model*/
+        max-width: 200px;
+      }
+
+      #div1 {
+        /*box model*/
+        max-width: 100px;
+      }
+
+      .button {
+        /*box model*/
+        padding: 4px 8px;
+        background-color: var(--colorGreenOffice);
+        border: none;
+        border-radius: 4px;
+        display: block;
+      }
+
+      .button:hover {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="div2" class="div">
+      2
+      <div id="div1" class="div">
+        1
+        <!-- <button class="button">Click</button>-->
+        <a href="" class="button">Click</a>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    //Event probagation
+
+    window.addEventListener(
+      "click",
+      function () {
+        console.log("window");
+      },
+      true
+    );
+    document.addEventListener(
+      "click",
+      function () {
+        console.log("document");
+      },
+      true
+    );
+    var div1 = document.getElementById("div1");
+    var div2 = document.getElementById("div2");
+    var button = document.querySelector(".button");
+
+    div2.addEventListener(
+      "click",
+      function (event) {
+        //event.stopPropagation();
+        console.log("Div 2");
+      },
+      { once: true }
+    );
+
+    div1.addEventListener(
+      "click",
+      function () {
+        console.log("Div 1");
+      },
+      true
+    );
+
+    button.addEventListener(
+      "click",
+      function (event) {
+        event.preventDefault();
+
+        console.log((event.target.innerText = "clicked!"));
+      },
+      true
+    );
+  </script>
+</html>
