@@ -4,18 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quote Generator</title>
+    <link
+      rel="shortcut icon"
+      href="images/left-quote.png"
+      type="image/x-icon"
+    />
     <link rel="stylesheet" href="styles/style.css" media="all" />
     <link
       rel="stylesheet"
       href="tablet.css"
       media="screen and (min-width:756px)"
     />
-    <link
-      rel="stylesheet"
-      href="desktop.css"
-      media="screen and (min-width:1024px)"
-    />
     <link rel="stylesheet" href="print.css" media="print" />
   </head>
-  <body></body>
+  <body>
+    <main id="main" class="flexbox">
+      <!--Title-->
+      <section id="containerTitle">
+        <h1 class="title">Quote Generator</h1>
+      </section>
+
+      <!--Quote-->
+      <section id="containerQuote" class="flexbox">
+        <div id="quote">
+          “A vida é como uma peça de teatro: não importa quanto seja longa, mas
+          sim quão bem representada é.”
+        </div>
+        <div id="author">Socrates</div>
+        <button id="buttonNewQuote" class="button">New Quote</button>
+      </section>
+    </main>
+  </body>
 </html>

@@ -1,0 +1,34 @@
+#main {
+  /*Box model*/
+  max-width: 640px;
+
+  /*Display stuff*/
+  gap: 80px;
+}
+
+/*Title*/
+.title {
+  /*Typograph*/
+  font-size: 25px;
+}
+
+/*Container of quote*/
+/*quote*/
+#quote {
+  /*Typograph*/
+  font-size: 20px;
+  line-height: 40px;
+}
+
+/*author*/
+.quoteSymbol,
+#author {
+  /*Typograph*/
+  font-size: 25px;
+}
+
+/*button*/
+.button {
+  /*Typograph*/
+  font-size: 16px;
+}

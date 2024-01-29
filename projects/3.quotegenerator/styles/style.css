@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Roboto:ital,wght@0,400;0,700;1,500&display=swap");
 
 :root {
   /*Typograph*/
@@ -11,4 +11,104 @@
   --colorOrange: #ec4e20;
   --colorOrangeDark: #d17a22;
   --colorGray: #4d4d4d;
+}
+
+* {
+  /*Box model*/
+  margin: 0px;
+  padding: 0px;
+
+  /*Typograph*/
+  font-family: var(--font-title);
+}
+
+body {
+  /*Box model*/
+  width: 100%;
+  height: 100vh;
+  background-image: url(../images/socrates2.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.flexbox {
+  /*Display stuff*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#main {
+  /*Box model*/
+  max-width: 320px;
+  margin: 0px auto;
+  margin-top: 20%;
+
+  /*Display stuff*/
+  gap: 40px;
+}
+
+/*Title*/
+#containerTitle {
+  /*Box model*/
+  padding: 8px 16px;
+  background-color: var(--colorWhite);
+  border-radius: 16px;
+}
+
+.title {
+  /*Typograph*/
+  font-size: 20px;
+  color: var(--colorOrange);
+}
+
+/*Container of quote*/
+#containerQuote {
+  /*Box model*/
+  width: 100%;
+  padding: 40px 0px;
+  border-radius: 8px;
+  background-color: var(--colorWhite);
+
+  /*Display stuff*/
+  gap: 20px;
+}
+
+/*quote*/
+#quote {
+  /*Box model*/
+  padding: 0px 20px;
+  /*Typograph*/
+  font-size: 16px;
+  font-family: var(--font-content);
+  line-height: 32px;
+  text-align: left;
+}
+
+/*author*/
+.quoteSymbol,
+#author {
+  /*Typograph*/
+  color: var(--colorOrangeDark);
+  font-size: 20px;
+}
+
+/*button*/
+.button {
+  /*Box model*/
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--colorBlack);
+
+  /*Typograph*/
+  font-size: 12px;
+  color: var(--colorWhite);
+}
+
+.button:hover {
+  /*Box model*/
+  background-color: var(--colorGray);
+  cursor: pointer;
 }
